@@ -1,0 +1,10 @@
+//
+// Created by kabus on 27.04.2026.
+//
+
+#include "Vector.h"
+
+Vector::Vector(double x, double y) {
+    this->x = x;
+    this->y = y;
+}

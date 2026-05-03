@@ -1,9 +1,14 @@
 #include <iostream>
+#include <optional>
+#include <random>
 #include <wx/wx.h>
 #include <wx/graphics.h>
 #include <wx/dcbuffer.h>
 
-class BombermanCanvas : public wxPanel {
+#include "Board.h"
+#include "render/BombermanCanvas.h"
+
+/*class BombermanCanvas : public wxPanel {
 public:
     BombermanCanvas(wxWindow* parent) : wxPanel(parent) {
         Bind(wxEVT_PAINT, &BombermanCanvas::OnPaint, this);
@@ -48,7 +53,7 @@ private:
     void OnRefreshTimer(wxTimerEvent&) {
         Refresh(false);
     }
-};
+};*/
 
 enum
 {
@@ -58,10 +63,10 @@ enum
 
 class BombermanFrame : public wxFrame {
 public:
-    BombermanFrame() : wxFrame(NULL, wxID_ANY, "Bomberman", wxDefaultPosition, wxSize(800, 600)) {
-        wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+    BombermanFrame() : wxFrame(NULL, wxID_ANY, "Bomberman", wxDefaultPosition, wxSize(800, 600)), board(21, 11) {
+        wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
 
-        wxMenu* menuGame = new wxMenu;
+        wxMenu *menuGame = new wxMenu;
         menuGame->Append(ID_NewGame, "Nowa gra");
         Bind(wxEVT_MENU, &BombermanFrame::OnNewGame, this, ID_NewGame);
         menuGame->Append(ID_FullScreen, wxString::FromUTF8("Pełny ekran\tF11"), "", true);
@@ -78,35 +83,35 @@ public:
         SetMenuBar(menuBar);
 
         menuPanel = new wxPanel(this);
-        wxBoxSizer* menuOuterSizer = new wxBoxSizer(wxVERTICAL);
-        wxBoxSizer* menuSizer = new wxBoxSizer(wxVERTICAL);
-        wxStaticText* title = new wxStaticText(menuPanel, wxID_ANY, "BomberMan");
+        wxBoxSizer *menuOuterSizer = new wxBoxSizer(wxVERTICAL);
+        wxBoxSizer *menuSizer = new wxBoxSizer(wxVERTICAL);
+        wxStaticText *title = new wxStaticText(menuPanel, wxID_ANY, "BomberMan");
         title->SetFont(GetFont().Scale(3.0));
         menuSizer->Add(title, 0, wxALIGN_CENTER | wxBOTTOM, 10);
-        wxButton* newGameButton = new wxButton(
-            menuPanel,              // parent (the panel!)
-            wxID_ANY,           // ID
-            "Nowa gra",         // label
-            wxPoint(10, 10),    // position
-            wxSize(100, 30)     // size
+        wxButton *newGameButton = new wxButton(
+            menuPanel, // parent (the panel!)
+            wxID_ANY, // ID
+            "Nowa gra", // label
+            wxPoint(10, 10), // position
+            wxSize(100, 30) // size
         );
         newGameButton->Bind(wxEVT_BUTTON, &BombermanFrame::OnNewGame, this);
         menuSizer->Add(newGameButton, 0, wxEXPAND | wxBOTTOM, 10);
-        wxButton* aboutButton = new wxButton(
-            menuPanel,              // parent (the panel!)
-            wxID_ANY,           // ID
-            "O autorach",         // label
-            wxPoint(10, 10),    // position
-            wxSize(100, 30)     // size
+        wxButton *aboutButton = new wxButton(
+            menuPanel, // parent (the panel!)
+            wxID_ANY, // ID
+            "O autorach", // label
+            wxPoint(10, 10), // position
+            wxSize(100, 30) // size
         );
         aboutButton->Bind(wxEVT_BUTTON, &BombermanFrame::OnAbout, this);
         menuSizer->Add(aboutButton, 0, wxEXPAND | wxBOTTOM, 10);
-        wxButton* quitButton = new wxButton(
-            menuPanel,              // parent (the panel!)
-            wxID_ANY,           // ID
-            wxT("Wyjdź z gry"),         // label
-            wxPoint(10, 10),    // position
-            wxSize(100, 30)     // size
+        wxButton *quitButton = new wxButton(
+            menuPanel, // parent (the panel!)
+            wxID_ANY, // ID
+            wxT("Wyjdź z gry"), // label
+            wxPoint(10, 10), // position
+            wxSize(100, 30) // size
         );
         quitButton->Bind(wxEVT_BUTTON, &BombermanFrame::OnExit, this);
         menuSizer->Add(quitButton, 0, wxEXPAND);
@@ -117,6 +122,7 @@ public:
         menuPanel->SetSizer(menuOuterSizer);
 
         gamePanel = new BombermanCanvas(this);
+        gamePanel->SetBoard(&board);
 
         sizer->Add(menuPanel, 1, wxEXPAND);
         sizer->Add(gamePanel, 1, wxEXPAND);
@@ -124,11 +130,13 @@ public:
         SetSizer(sizer);
 
         gamePanel->Hide();
+        gamePanel->Bind(wxEVT_CHAR_HOOK, &BombermanFrame::OnKeyDown, this);
     }
 
 private:
     wxPanel* menuPanel;
     BombermanCanvas* gamePanel;
+    Board board;
 
     void OnHello(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event) {
@@ -141,10 +149,17 @@ private:
     void OnNewGame(wxCommandEvent &event) {
         menuPanel->Hide();
         gamePanel->Show();
+        gamePanel->SetFocus();
+        board.Reset();
         GetSizer()->Layout();
     }
     void OnToggleFullscreen(wxCommandEvent &event) {
         this->ShowFullScreen(!this->IsFullScreen());
+    }
+
+    void OnKeyDown(wxKeyEvent& event) {
+        wxMessageBox(wxString::Format("KeyDown: %i\n", (int)event.GetKeyCode()));
+        event.Skip();
     }
 };
 

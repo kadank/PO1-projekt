@@ -8,7 +8,20 @@ if(wxWidgets_USE_FILE) # not defined in CONFIG mode
     include(${wxWidgets_USE_FILE})
 endif()
 
-add_executable(projekt main.cpp)
+add_executable(projekt src/main.cpp
+        src/Board.cpp
+        src/Board.h
+        src/objects/Tile.cpp
+        src/objects/Tile.h
+        src/objects/Object.cpp
+        src/objects/Object.h
+        src/utils/Vector.cpp
+        src/utils/Vector.h
+        src/objects/Player.cpp
+        src/objects/Player.h
+        src/render/BombermanCanvas.cpp
+        src/render/BombermanCanvas.h
+)
 target_link_libraries(projekt ${wxWidgets_LIBRARIES})
 
 IF(WIN32)
