@@ -4,7 +4,7 @@
 
 #include "Object.h"
 
-void Object::Tick(double delta) {
+void Object::Tick(std::set<char> pressedKeys) {
 
 }
 

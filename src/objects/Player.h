@@ -9,6 +9,8 @@
 class Player: public Object {
 public:
     Player();
+
+    void Tick(std::set<char> pressedKeys) override;
 };
 
 #endif //PROJEKT_PLAYER_H

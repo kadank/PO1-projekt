@@ -20,7 +20,14 @@ BombermanGame::BombermanGame(wxWindow *parent, Board& initialBoard) : wxPanel(pa
     drawTimer.Start(16); // ~60 FPS
 }
 
+void BombermanGame::Tick() {
+    for(auto object : board.objects) {
+        object->Tick(pressedKeys);
+    }
+}
+
 void BombermanGame::OnDrawTimer(wxTimerEvent &event) {
+    Tick();
     Refresh(false);
 }
 
@@ -45,4 +52,12 @@ void BombermanGame::Setup(wxGraphicsContext* gc) {
 void BombermanGame::SetBoard(Board& board) {
     this->board = board;
     this->renderer.SetBoard(board);
+}
+
+void BombermanGame::SetKeyDown(char key) {
+    pressedKeys.insert(key);
+}
+
+void BombermanGame::SetKeyUp(char key) {
+    pressedKeys.erase(key);
 }

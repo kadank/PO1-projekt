@@ -130,7 +130,9 @@ public:
         SetSizer(sizer);
 
         gamePanel->Hide();
-        gamePanel->Bind(wxEVT_CHAR_HOOK, &BombermanFrame::OnKeyDown, this);
+        gamePanel->Bind(wxEVT_KEY_DOWN, &BombermanFrame::OnKeyDown, this);
+        gamePanel->Bind(wxEVT_KEY_UP, &BombermanFrame::OnKeyUp, this);
+
     }
 
 private:
@@ -158,7 +160,12 @@ private:
     }
 
     void OnKeyDown(wxKeyEvent& event) {
-        wxMessageBox(wxString::Format("KeyDown: %i\n", (int)event.GetKeyCode()));
+        gamePanel->SetKeyDown(event.GetUnicodeKey());
+        event.Skip();
+    }
+
+    void OnKeyUp(wxKeyEvent& event) {
+        gamePanel->SetKeyUp(event.GetUnicodeKey());
         event.Skip();
     }
 };
@@ -166,6 +173,7 @@ private:
 class BombermanApp : public wxApp {
 public:
     virtual bool OnInit() {
+        wxInitAllImageHandlers(); // fuck windows
         BombermanFrame *frame = new BombermanFrame();
         frame->Show(true);
         return true;

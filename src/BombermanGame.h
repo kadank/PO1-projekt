@@ -6,6 +6,7 @@
 #define PROJEKT_BOMBERMANCANVAS_H
 #include <wx/graphics.h>
 #include <wx/wx.h>
+#include <set>
 
 #include "render/Renderer.h"
 
@@ -16,6 +17,8 @@ public:
     BombermanGame(wxWindow* parent, Board& initialBoard);
 
     void SetBoard(Board& board);
+    void SetKeyDown(char key);
+    void SetKeyUp(char key);
 
 private:
     wxTimer drawTimer;
@@ -23,7 +26,9 @@ private:
     int frames_count = 0;
     Board& board;
     Renderer renderer;
+    std::set<char> pressedKeys;
 
+    void Tick();
     void OnDrawTimer(wxTimerEvent& event);
     void OnPaint(wxPaintEvent& event);
 
