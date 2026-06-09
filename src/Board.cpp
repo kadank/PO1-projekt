@@ -4,8 +4,11 @@
 
 #include "Board.h"
 
+#include <iostream>
 #include <random>
+#include <list>
 
+#include "Constants.h"
 #include "objects/Player.h"
 
 Board::Board(int width, int height) {
@@ -19,7 +22,7 @@ void Board::Reset() {
     tiles.clear();
     tiles.resize(height);
     objects.clear();
-    objects.push_back(new Player());
+    objects.push_back(new Player(*this));
     GenerateBoard();
 }
 
@@ -41,4 +44,35 @@ void Board::GenerateBoard() {
             }
         }
     }
+}
+
+bool Board::CheckCollisions(Object &object, std::list<Object*>* collidesWith) {
+    bool out = false;
+
+    /*
+    return !(a.x > b.x + b.w ||
+    a.x + a.w < b.x ||
+    a.y > b.y + b.h ||
+    a.y + a.h < b.y);
+    */
+
+    for(int row = 0; row < height; row++) {
+        for(int col = 0; col < width; col++) {
+            if(tiles[row][col].type != TileType::Empty) {
+                if(!(object.position.x >= col * TILE_SIZE + TILE_SIZE ||
+                    object.position.x + object.size.x <= col * TILE_SIZE ||
+                    object.position.y >= row * TILE_SIZE + TILE_SIZE ||
+                    object.position.y + object.size.y <= row * TILE_SIZE)) {
+                    out = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    return out;
+}
+
+bool Board::CheckCollisions(Object &object) {
+    return CheckCollisions(object, new std::list<Object*>());
 }

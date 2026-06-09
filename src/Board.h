@@ -4,6 +4,7 @@
 
 #ifndef PROJEKT_BOARD_H
 #define PROJEKT_BOARD_H
+#include <list>
 #include <vector>
 
 #include "objects/Tile.h"
@@ -18,6 +19,8 @@ public:
     Board(int width, int height);
 
     void Reset();
+    bool CheckCollisions(Object &object, std::list<Object*>* collidesWith);
+    bool CheckCollisions(Object &object);
 
 private:
     void GenerateBoard();

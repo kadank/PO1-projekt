@@ -8,4 +8,4 @@ void Object::Tick(std::set<char> pressedKeys) {
 
 }
 
-Object::Object(Vector position, Vector size, std::string spriteName) : position(position), size(size), spriteName(spriteName) {}
+Object::Object(Vector position, Vector size, std::string spriteName, Board& board) : position(position), size(size), spriteName(spriteName), board(board) {}

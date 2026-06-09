@@ -10,13 +10,16 @@
 #include "../render/Sprite.h"
 #include "../utils/Vector.h"
 
+class Board;
+
 class Object {
 public:
     Vector position;
     Vector size;
     std::string spriteName;
+    Board& board;
 
-    Object(Vector position, Vector size, std::string spriteName);
+    Object(Vector position, Vector size, std::string spriteName, Board& board);
 
     virtual void Tick(std::set<char> pressedKeys);
 };

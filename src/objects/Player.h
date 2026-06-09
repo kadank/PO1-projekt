@@ -8,7 +8,7 @@
 
 class Player: public Object {
 public:
-    Player();
+    Player(Board& board);
 
     void Tick(std::set<char> pressedKeys) override;
 };
