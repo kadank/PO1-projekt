@@ -61,3 +61,7 @@ void BombermanGame::SetKeyDown(char key) {
 void BombermanGame::SetKeyUp(char key) {
     pressedKeys.erase(key);
 }
+
+void BombermanGame::SetPlayerColor(wxColour color) {
+    renderer.SetPlayerColor(color);
+}

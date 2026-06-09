@@ -14,6 +14,7 @@ class Sprite {
 
 public:
     Sprite(std::string texture_path);
+    Sprite(std::string texture_path, wxColor accent);
     void Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t);
 };
 

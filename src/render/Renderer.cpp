@@ -10,7 +10,7 @@
 
 Renderer::Renderer(Board& board) : board(board) {
     sprites.insert({"error", Sprite("assets/textures/error.png")});
-    sprites.insert({"player", Sprite("assets/textures/player.png")});
+    sprites.insert({"player", Sprite("assets/textures/player.png", wxColor(74, 195, 255))});
     sprites.insert({"wall_solid", Sprite("assets/textures/wall_solid.png")});
     sprites.insert({"wall_destructible", Sprite("assets/textures/wall_destructible.png")});
 }
@@ -66,4 +66,8 @@ void Renderer::DrawBoard(wxGraphicsContext* ctx, Transform& t) {
             }
         }
     }
+}
+
+void Renderer::SetPlayerColor(wxColour color) {
+    sprites.insert_or_assign("player", Sprite("assets/textures/player.png", color));
 }

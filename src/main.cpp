@@ -4,6 +4,7 @@
 #include <wx/wx.h>
 #include <wx/graphics.h>
 #include <wx/dcbuffer.h>
+#include <wx/clrpicker.h>
 
 #include "Board.h"
 #include "BombermanGame.h"
@@ -161,6 +162,12 @@ public:
 
         //about koniec kurwa-------------------------------------------------------------------------------------------------
 
+        wxBoxSizer* colorPickerSizer = new wxBoxSizer(wxHORIZONTAL);
+        auto colorPickerLabel = new wxStaticText(menuPanel, wxID_ANY, "Kolor postaci: ");
+        colorPickerSizer->Add(colorPickerLabel, 0, wxALIGN_CENTER, 10);
+        characterColorPicker = new wxColourPickerCtrl(menuPanel, wxID_ANY);
+        colorPickerSizer->Add(characterColorPicker, 1, 0, 10);
+        menuSizer->Add(colorPickerSizer, 0, wxEXPAND | wxBOTTOM, 10);
         wxButton *newGameButton = new wxButton(
             menuPanel, // parent (the panel!)
             wxID_ANY, // ID
@@ -216,6 +223,7 @@ private:
     wxPanel* aboutPanel;
     BombermanGame* gamePanel;
     Board board;
+    wxColourPickerCtrl* characterColorPicker;
 
     void OnHello(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event) {
@@ -228,6 +236,7 @@ private:
         //wxMessageBox("Autorzy \n Jakub Sakra \n Igor Lachowski \n Adrian Kisielewski \n Kacper 'Kykol' Kotulski", "About Us", wxOK | wxICON_INFORMATION);
     }
     void OnNewGame(wxCommandEvent &event) {
+        gamePanel->SetPlayerColor(characterColorPicker->GetColour());
         menuPanel->Hide();
         gamePanel->Show();
         gamePanel->SetFocus();

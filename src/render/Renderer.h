@@ -21,6 +21,7 @@ class Renderer {
 
 public:
     Renderer(Board& board);
+    void SetPlayerColor(wxColor color);
     void SetBoard(Board& board);
     void DrawFrame(wxGraphicsContext* ctx, wxSize canvasSize);
 };
