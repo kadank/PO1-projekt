@@ -35,6 +35,8 @@ void Board::GenerateBoard() {
         if(tiles[row].capacity() < width) tiles[row].resize(width);
 
         for(int col = 0; col < width; col++) {
+            if(row == 1 && col == 1 || row == 1 && col == 2 || row == 2 && col == 1) continue;
+
             if(col == 0 || col == width - 1 || row == 0 || row == height - 1) {
                 this->tiles[row][col] = Tile(TileType::Solid);
             } else if((col + 2) % 2 == 0 && (row + 2) % 2 == 0) {
