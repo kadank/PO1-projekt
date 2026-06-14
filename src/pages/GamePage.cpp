@@ -50,3 +50,7 @@ void GamePage::OnKeyUp(wxKeyEvent &event) {
 void GamePage::Reset() {
     gamePanel->ResetBoard();
 }
+
+void GamePage::SetPlayerColor(wxColour color) {
+    gamePanel->SetPlayerColor(color);
+}

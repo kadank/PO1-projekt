@@ -23,6 +23,7 @@ private:
 public:
     GamePage(wxWindow* parent);
     void Reset();
+    void SetPlayerColor(wxColor color);
 };
 
 

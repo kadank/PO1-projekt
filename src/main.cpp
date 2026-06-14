@@ -132,7 +132,7 @@ private:
         menuPanel->Show();
     }
     void OnNewGame(wxCommandEvent &event) {
-        // gamePanel->SetPlayerColor(event.GetInt());
+        gamePanel->SetPlayerColor(event.GetInt());
         menuPanel->Hide();
         gamePanel->Show();
         aboutPanel -> Hide();
