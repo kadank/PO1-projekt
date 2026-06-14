@@ -19,8 +19,9 @@ public:
     Board(int width, int height);
 
     void Reset();
-    bool CheckCollisions(Object &object, std::list<Object*>* collidesWith);
-    bool CheckCollisions(Object &object);
+    TileType CheckCollisions(Object &object, std::vector<Object*>* collidesWith);
+    TileType CheckCollisions(Object &object);
+    bool CheckCollisionsSimple(Object &object);
 
 private:
 

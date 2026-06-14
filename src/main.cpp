@@ -233,6 +233,7 @@ private:
         menuPanel -> Hide();
         gamePanel -> Hide();
         aboutPanel -> Show();
+        this->Layout();
         //wxMessageBox("Autorzy \n Jakub Sakra \n Igor Lachowski \n Adrian Kisielewski \n Kacper 'Kykol' Kotulski", "About Us", wxOK | wxICON_INFORMATION);
     }
     void OnNewGame(wxCommandEvent &event) {
@@ -251,6 +252,7 @@ private:
     void OnAboutReturn(wxCommandEvent &event) {
         menuPanel->Show();
         aboutPanel->Hide();
+        this->Layout();
     }
 
     void OnKeyDown(wxKeyEvent& event) {

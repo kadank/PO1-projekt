@@ -27,6 +27,10 @@ add_executable(projekt src/main.cpp
         src/render/Sprite.h
         src/render/Transform.h
         src/Constants.h
+        src/objects/Bomb.cpp
+        src/objects/Bomb.h
+        src/objects/BombExplosion.cpp
+        src/objects/BombExplosion.h
 )
 target_link_libraries(projekt ${wxWidgets_LIBRARIES})
 

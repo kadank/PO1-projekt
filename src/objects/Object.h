@@ -18,6 +18,7 @@ public:
     Vector size;
     std::string spriteName;
     Board& board;
+    bool flagDelete = false;
 
     Object(Vector position, Vector size, std::string spriteName, Board& board);
 

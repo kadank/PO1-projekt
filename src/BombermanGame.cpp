@@ -21,9 +21,18 @@ BombermanGame::BombermanGame(wxWindow *parent, Board& initialBoard) : wxPanel(pa
 }
 
 void BombermanGame::Tick() {
-    for(auto object : board.objects) {
-        object->Tick(pressedKeys);
+    for(size_t i = 0; i < board.objects.size(); i++) {
+        board.objects[i]->Tick(pressedKeys);
     }
+    board.objects.erase(
+        std::remove_if(
+            board.objects.begin(), board.objects.end(),
+            [](const Object* x) {
+                return x->flagDelete;
+            }
+        ),
+        board.objects.end()
+    );
 }
 
 void BombermanGame::OnDrawTimer(wxTimerEvent &event) {

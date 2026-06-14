@@ -7,6 +7,8 @@
 #include "Object.h"
 
 class Player: public Object {
+    bool spawned = false;
+
 public:
     Player(Board& board);
 

@@ -13,6 +13,8 @@ Renderer::Renderer(Board& board) : board(board) {
     sprites.insert({"player", Sprite("assets/textures/player.png", wxColor(74, 195, 255))});
     sprites.insert({"wall_solid", Sprite("assets/textures/wall_solid.png")});
     sprites.insert({"wall_destructible", Sprite("assets/textures/wall_destructible.png")});
+    sprites.insert({"bomb", Sprite("assets/textures/bomb.png")});
+    sprites.insert({"explosion", Sprite("assets/textures/explosion.png")});
 }
 
 void Renderer::SetBoard(Board& board) {

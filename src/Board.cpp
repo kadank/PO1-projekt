@@ -72,6 +72,8 @@ void Board::SpawnEnemies() {
 
 bool Board::CheckCollisions(Object &object, std::list<Object*>* collidesWith) {
     bool out = false;
+TileType Board::CheckCollisions(Object &object, std::vector<Object*>* collidesWith) {
+    TileType out = TileType::Empty;
 
     /*
     return !(a.x > b.x + b.w ||
@@ -87,16 +89,29 @@ bool Board::CheckCollisions(Object &object, std::list<Object*>* collidesWith) {
                     object.position.x + object.size.x <= col * TILE_SIZE ||
                     object.position.y >= row * TILE_SIZE + TILE_SIZE ||
                     object.position.y + object.size.y <= row * TILE_SIZE)) {
-                    out = true;
+                    out = tiles[row][col].type;
                     break;
                 }
             }
         }
     }
 
+    for(auto object2 : objects) {
+        if(!(object.position.x >= object2->position.x + object2->size.x ||
+            object.position.x + object.size.x <= object2->position.x ||
+            object.position.y >= object2->position.y + object2->size.y ||
+            object.position.y + object.size.y <= object2->position.y)) {
+            collidesWith->push_back(object2);
+        }
+    }
+
     return out;
 }
 
-bool Board::CheckCollisions(Object &object) {
-    return CheckCollisions(object, new std::list<Object*>());
+TileType Board::CheckCollisions(Object &object) {
+    return CheckCollisions(object, new std::vector<Object*>());
+}
+
+bool Board::CheckCollisionsSimple(Object &object) {
+    return CheckCollisions(object, new std::vector<Object*>()) != TileType::Empty;
 }
