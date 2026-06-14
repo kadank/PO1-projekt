@@ -24,6 +24,8 @@ void BombExplosion::Tick(std::set<char> pressedKeys) {
         for (auto obj : tmp) {
             if (dynamic_cast<Enemy*>(obj) != nullptr) {
                 obj->flagDelete = true;
+                board.score += 10;
+                board.onScoreChanged(board.score);
             }
         }
     }
