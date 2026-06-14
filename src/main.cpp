@@ -150,6 +150,7 @@ class BombermanApp : public wxApp {
 public:
     virtual bool OnInit() {
         wxInitAllImageHandlers(); // fuck windows
+        wxFont::AddPrivateFont("assets/fonts/PxPlus_ToshibaSat_8x16.ttf");
         BombermanFrame *frame = new BombermanFrame();
         frame->Show(true);
         return true;

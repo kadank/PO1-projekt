@@ -8,11 +8,14 @@ HudDisplay::HudDisplay(wxWindow *parent, wxString label, wxString initialValue) 
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
     SetSizer(sizer);
 
+    wxFont hudFont(wxSize(8, 16), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, "PxPlus ToshibaSat 8x16");
+
     this->label = new wxStaticText(this, wxID_ANY, label);
-    sizer->Add(this->label, 0, wxALIGN_CENTER);
+    this->label->SetFont(hudFont);
+    sizer->Add(this->label, 0, wxALIGN_CENTER | wxTOP, 4);
 
     value = new wxStaticText(this, wxID_ANY, initialValue);
-    value->SetFont(GetFont().Scale(2.0));
+    value->SetFont(hudFont.Scale(2.0));
     sizer->Add(value, 0, wxALIGN_CENTER);
 }
 
