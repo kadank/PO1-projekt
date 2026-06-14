@@ -10,6 +10,11 @@ class Enemy:public Object {
 public:
     Enemy(Board& board, Vector position);
 
+private:
+    bool rotation;
+    bool direction;
+    void DetermineDirection();
+    void Tick(std::set<char> pressedKeys) override;
 };
 
 
