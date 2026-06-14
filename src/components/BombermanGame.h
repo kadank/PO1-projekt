@@ -8,7 +8,7 @@
 #include <wx/wx.h>
 #include <set>
 
-#include "render/Renderer.h"
+#include "../render/Renderer.h"
 
 class Board;
 
@@ -20,6 +20,7 @@ public:
     void SetKeyDown(char key);
     void SetKeyUp(char key);
     void SetPlayerColor(wxColor color);
+    void ResetBoard();
 
 private:
     wxTimer drawTimer;

@@ -5,7 +5,7 @@
 #include "Player.h"
 
 #include "Bomb.h"
-#include "../BombermanGame.h"
+#include "../components/BombermanGame.h"
 #include "../Constants.h"
 
 Player::Player(Board& board) : Object(Vector(32.0, 32.0), Vector(TILE_SIZE, TILE_SIZE), "player", board) {

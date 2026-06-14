@@ -7,8 +7,8 @@
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 
-#include "Board.h"
-#include "Constants.h"
+#include "../Board.h"
+#include "../Constants.h"
 
 BombermanGame::BombermanGame(wxWindow *parent, Board& initialBoard) : wxPanel(parent), board(initialBoard), renderer(initialBoard) {
     Bind(wxEVT_PAINT, &BombermanGame::OnPaint, this);
@@ -73,4 +73,8 @@ void BombermanGame::SetKeyUp(char key) {
 
 void BombermanGame::SetPlayerColor(wxColour color) {
     renderer.SetPlayerColor(color);
+}
+
+void BombermanGame::ResetBoard() {
+    this->board.Reset();
 }
