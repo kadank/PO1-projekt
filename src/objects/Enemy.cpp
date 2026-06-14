@@ -9,7 +9,7 @@
 #include "../components/BombermanGame.h"
 #include "../Constants.h"
 
-Enemy::Enemy(Board& board, Vector position) : Object(position, Vector(TILE_SIZE, TILE_SIZE), "error", board) {
+Enemy::Enemy(Board& board, Vector position) : Object(position, Vector(TILE_SIZE, TILE_SIZE), "enemy", board) {
     DetermineDirection();
 }
 
@@ -28,57 +28,14 @@ void Enemy::DetermineDirection(){
         direction = false;
     }
 
-    /*if (rotation) {
-        int old = position.y;
-        if (direction) {
-            position.y +=1;
-        }else {
-            position.y -=1;
-        }
-        if(board.CheckCollisionsSimple(*this)) {
-            direction = !direction;
-        }
-        position.y = old;
-        if (direction) {
-            position.y +=1;
-        }else {
-            position.y -=1;
-        }
-        if(board.CheckCollisions(*this)==TileType::Solid) {
-            rotation = !rotation;
-        }
-        position.y = old;
-    }else {
-        int old = position.x;
-        if (direction) {
-            position.x +=1;
-        }else {
-            position.x -=1;
-        }
-        if(board.CheckCollisionsSimple(*this)) {
-            direction = !direction;
-        }
-        position.x = old;
-        if (direction) {
-            position.x +=1;
-        }else {
-            position.x -=1;
-        }
-        if(board.CheckCollisions(*this)==TileType::Solid) {
-            rotation = !rotation;
-        }
-        position.x = old;
-    }*/
-
-
-
 }
 
 void Enemy::Tick(std::set<char> pressedKeys) {
         std::random_device dev;
         std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> rand(1,500);
-    if (rand(rng)==1) direction = !direction;
+    int random = rand(rng);
+    if (random==1) direction = !direction;
     if (rotation) {
         int old = position.y;
         if (direction) {
@@ -87,15 +44,14 @@ void Enemy::Tick(std::set<char> pressedKeys) {
             position.y -=1;
         if(board.CheckCollisionsSimple(*this)) {
             position.y = old;
-            std::uniform_int_distribution<std::mt19937::result_type> rand(1,3);
-            switch (rand(rng)) {
-                case 1:
+            switch (random%3) {
+                case 0:
                     direction = !direction;
                     break;
-                case 2:
+                case 1:
                     rotation = !rotation;
                     break;
-                case 3:
+                case 2:
                     rotation = !rotation;
                     direction = !direction;
                     break;
@@ -105,14 +61,12 @@ void Enemy::Tick(std::set<char> pressedKeys) {
         old = position.x;
         position.x += 1;
         if(!board.CheckCollisionsSimple(*this)) {
-            std::uniform_int_distribution<std::mt19937::result_type> rand(1,6);
-            if (rand(rng)==1) rotation = !rotation;
+            if (random%6==1) rotation = !rotation;
         } else {
             position.x = old;
             position.x -= 1;
             if(!board.CheckCollisionsSimple(*this)) {
-                std::uniform_int_distribution<std::mt19937::result_type> rand(1,6);
-                if (rand(rng)==1) rotation = !rotation;
+                if (random%6==1) rotation = !rotation;
             }
         }
         position.x = old;
@@ -128,8 +82,7 @@ void Enemy::Tick(std::set<char> pressedKeys) {
             position.x -=1;
         if(board.CheckCollisionsSimple(*this)) {
             position.x = old;
-            std::uniform_int_distribution<std::mt19937::result_type> rand(1,3);
-            switch (rand(rng)) {
+            switch (random%3) {
                 case 1:
                     direction = !direction;
                     break;
@@ -145,14 +98,12 @@ void Enemy::Tick(std::set<char> pressedKeys) {
         old = position.y;
         position.y += 1;
         if(!board.CheckCollisionsSimple(*this)) {
-            std::uniform_int_distribution<std::mt19937::result_type> rand(1,6);
-            if (rand(rng)==1) rotation = !rotation;
+            if (random%6==1) rotation = !rotation;
         } else {
             position.y = old;
             position.y -= 1;
             if(!board.CheckCollisionsSimple(*this)) {
-                std::uniform_int_distribution<std::mt19937::result_type> rand(1,6);
-                if (rand(rng)==1) rotation = !rotation;
+                if (random%6==1) rotation = !rotation;
             }
         }
         position.y = old;

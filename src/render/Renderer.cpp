@@ -15,6 +15,7 @@ Renderer::Renderer(Board& board) : board(board) {
     sprites.insert({"wall_destructible", Sprite("assets/textures/wall_destructible.png")});
     sprites.insert({"bomb", Sprite("assets/textures/bomb.png")});
     sprites.insert({"explosion", Sprite("assets/textures/explosion.png")});
+    sprites.insert({"enemy", Sprite("assets/textures/enemy.png")});
 }
 
 void Renderer::SetBoard(Board& board) {
