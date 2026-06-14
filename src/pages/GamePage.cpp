@@ -34,3 +34,7 @@ void GamePage::OnKeyUp(wxKeyEvent &event) {
     gamePanel->SetKeyUp(event.GetUnicodeKey());
     event.Skip();
 }
+
+void GamePage::Reset() {
+    gamePanel->ResetBoard();
+}

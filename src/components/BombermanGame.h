@@ -20,6 +20,7 @@ public:
     void SetKeyDown(char key);
     void SetKeyUp(char key);
     void SetPlayerColor(wxColor color);
+    void ResetBoard();
 
 private:
     wxTimer drawTimer;

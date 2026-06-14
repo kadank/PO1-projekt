@@ -109,9 +109,9 @@ public:
     }
 
 private:
-    wxPanel* menuPanel;
-    wxPanel* aboutPanel;
-    wxPanel* gamePanel;
+    MainMenuPage* menuPanel;
+    AboutPage* aboutPanel;
+    GamePage* gamePanel;
     Board board;
     wxColourPickerCtrl* characterColorPicker;
 
@@ -132,7 +132,7 @@ private:
         gamePanel->Show();
         aboutPanel -> Hide();
         gamePanel->SetFocus();
-        board.Reset();
+        gamePanel->Reset();
         GetSizer()->Layout();
     }
     void OnToggleFullscreen(wxCommandEvent &event) {

@@ -74,3 +74,7 @@ void BombermanGame::SetKeyUp(char key) {
 void BombermanGame::SetPlayerColor(wxColour color) {
     renderer.SetPlayerColor(color);
 }
+
+void BombermanGame::ResetBoard() {
+    this->board.Reset();
+}

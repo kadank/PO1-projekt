@@ -22,6 +22,7 @@ private:
 
 public:
     GamePage(wxWindow* parent);
+    void Reset();
 };
 
 
