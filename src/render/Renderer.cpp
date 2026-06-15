@@ -5,6 +5,8 @@
 #include "Renderer.h"
 
 #include <iostream>
+#include <wx/brush.h>
+#include <wx/gtk/brush.h>
 
 #include "AnimatedSprite.h"
 #include "../Constants.h"
@@ -34,7 +36,7 @@ void Renderer::DrawFrame(wxGraphicsContext* ctx, wxSize canvasSize) {
     t.offsetX = (canvasSize.GetWidth() - board.width * TILE_SIZE * t.scale) / 2.0f;
     t.offsetY = ((canvasSize.GetHeight()) - board.height * TILE_SIZE * t.scale ) / 2.0f;
 
-    ctx->SetBrush(*wxGREY_BRUSH);
+    ctx->SetBrush(wxBrush(wxColor(60, 80, 60), wxBRUSHSTYLE_SOLID));
     ctx->DrawRectangle(0, 0, canvasSize.GetWidth(), canvasSize.GetHeight());
 
     DrawBoard(ctx, t);
