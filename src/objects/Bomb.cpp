@@ -17,51 +17,24 @@ void Bomb::Tick(std::set<char> pressedKeys) {
     if(ticks >= 180) {
         board.objects.push_back(new BombExplosion(board, position));
 
-        for(int x = position.x - TILE_SIZE; x >= position.x - TILE_SIZE * 2; x -= TILE_SIZE) {
-            std::vector<Object*> collidesWith;
-            auto explosion = new BombExplosion(board, Vector(x, position.y));
-            TileType col = board.CheckCollisions(*explosion, &collidesWith);
-            if(col == TileType::Empty || col == TileType::Destructible) {
-                board.objects.push_back(explosion);
-            }
-            if(col != TileType::Empty) {
-                break;
-            }
-        }
+        std::vector<std::pair<int, int>> directions = {{-TILE_SIZE, 0}, {TILE_SIZE, 0}, {0, -TILE_SIZE}, {0, TILE_SIZE}};
 
-        for(int x = position.x + TILE_SIZE; x <= position.x + TILE_SIZE * 2; x += TILE_SIZE) {
-            std::vector<Object*> collidesWith;
-            auto explosion = new BombExplosion(board, Vector(x, position.y));
-            TileType col = board.CheckCollisions(*explosion, &collidesWith);
-            if(col == TileType::Empty || col == TileType::Destructible) {
-                board.objects.push_back(explosion);
-            }
-            if(col != TileType::Empty) {
-                break;
-            }
-        }
+        for(auto [dx, dy] : directions) {
+            for(int i = 1; i <= 2; i++) {
+                Vector explosionPos(position.x + dx * i, position.y + dy * i);
+                auto explosion = new BombExplosion(board, explosionPos);
+                std::vector<Object*> collidesWith;
+                TileType col = board.CheckCollisions(*explosion, &collidesWith);
 
-        for(int y = position.y - TILE_SIZE; y >= position.y - TILE_SIZE * 2; y -= TILE_SIZE) {
-            std::vector<Object*> collidesWith;
-            auto explosion = new BombExplosion(board, Vector(position.x, y));
-            TileType col = board.CheckCollisions(*explosion, &collidesWith);
-            if(col == TileType::Empty || col == TileType::Destructible) {
-                board.objects.push_back(explosion);
-            }
-            if(col != TileType::Empty) {
-                break;
-            }
-        }
+                if(col == TileType::Empty || col == TileType::Destructible) {
+                    board.objects.push_back(explosion);
+                } else {
+                    delete explosion;
+                }
 
-        for(int y = position.y + TILE_SIZE; y <= position.y + TILE_SIZE * 2; y += TILE_SIZE) {
-            std::vector<Object*> collidesWith;
-            auto explosion = new BombExplosion(board, Vector(position.x, y));
-            TileType col = board.CheckCollisions(*explosion, &collidesWith);
-            if(col == TileType::Empty || col == TileType::Destructible) {
-                board.objects.push_back(explosion);
-            }
-            if(col != TileType::Empty) {
-                break;
+                if(col != TileType::Empty) {
+                    break;
+                }
             }
         }
 
