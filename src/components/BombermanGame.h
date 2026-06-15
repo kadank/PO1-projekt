@@ -21,6 +21,8 @@ public:
     void SetKeyUp(char key);
     void SetPlayerColor(wxColor color);
     void ResetBoard();
+    void Pause();
+    void Unpause();
 
 private:
     wxTimer drawTimer;

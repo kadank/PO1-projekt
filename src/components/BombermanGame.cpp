@@ -6,7 +6,7 @@
 
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
-
+#include "../objects/Enemy.h"
 #include "../Board.h"
 #include "../Constants.h"
 
@@ -35,6 +35,29 @@ void BombermanGame::Tick() {
     );
     board.timeLeftTicks--;
     board.onTimeChanged(board.timeLeftTicks / 60);
+
+    if(pressedKeys.contains(']')) {
+        for (Object* obj : board.objects) {
+            if (dynamic_cast<Enemy*>(obj) != nullptr) {
+                obj->flagDelete = true;
+            }
+        }
+    }
+    if(pressedKeys.contains('R')) {
+        board.Restart();
+    }
+
+    int enemyCount = 0;
+    for (Object* obj : board.objects) {
+        if (dynamic_cast<Enemy*>(obj) != nullptr) {
+            enemyCount++;
+        }
+    }
+    if (enemyCount==0) {
+        board.showOverlay(wxT("Zwycięstwo"),"",wxT("Powrót do menu"),[]{},wxT("Następny poziom"),[this]{board.NextLvl();is_paused = false;});
+        is_paused = true;
+    }
+
 }
 
 void BombermanGame::OnDrawTimer(wxTimerEvent &event) {

@@ -16,7 +16,7 @@ Board::Board(int width, int height) {
     this->width = width;
     this->height = height;
 
-    Reset();
+    Restart();
 }
 
 void Board::Reset() {
@@ -24,12 +24,30 @@ void Board::Reset() {
     tiles.resize(height);
     objects.clear();
     objects.push_back(new Player(*this));
-    score = 0;
     timeLeftTicks = 180 * 60;
-    lives = 3;
     GenerateBoard();
     SpawnEnemies();
 }
+void Board::Restart() {
+    level = 1;
+    score = 0;
+    lives = 3;
+    oldScore = 0;
+    Reset();
+}
+
+void Board::Respawn() {
+    score = oldScore;
+    Reset();
+}
+
+void Board::NextLvl() {
+    level++;
+    oldScore = score;
+    Reset();
+}
+
+
 
 void Board::GenerateBoard() {
     std::random_device dev;
@@ -54,7 +72,7 @@ void Board::GenerateBoard() {
 }
 
 void Board::SpawnEnemies() {
-    int enemycount = 4;
+    int enemycount = 2 + 2 * level;
     std::random_device dev;
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> rand(1,10);
