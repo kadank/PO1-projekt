@@ -43,6 +43,8 @@ add_executable(projekt src/main.cpp
         src/pages/GamePage.h
         src/components/HudDisplay.cpp
         src/components/HudDisplay.h
+        src/render/AnimatedSprite.cpp
+        src/render/AnimatedSprite.h
 )
 target_link_libraries(projekt ${wxWidgets_LIBRARIES})
 

@@ -6,16 +6,17 @@
 
 #include <iostream>
 
+#include "AnimatedSprite.h"
 #include "../Constants.h"
 
 Renderer::Renderer(Board& board) : board(board) {
-    sprites.insert({"error", Sprite("assets/textures/error.png")});
-    sprites.insert({"player", Sprite("assets/textures/player.png", wxColor(74, 195, 255))});
-    sprites.insert({"wall_solid", Sprite("assets/textures/wall_solid.png")});
-    sprites.insert({"wall_destructible", Sprite("assets/textures/wall_destructible.png")});
-    sprites.insert({"bomb", Sprite("assets/textures/bomb.png")});
-    sprites.insert({"explosion", Sprite("assets/textures/explosion.png")});
-    sprites.insert({"enemy", Sprite("assets/textures/enemy.png")});
+    sprites.insert({"error", new Sprite("assets/textures/error.png")});
+    sprites.insert({"player", new AnimatedSprite("assets/textures/player.png", 16, 15, wxColor(74, 195, 255))});
+    sprites.insert({"wall_solid", new Sprite("assets/textures/wall_solid.png")});
+    sprites.insert({"wall_destructible", new Sprite("assets/textures/wall_destructible.png")});
+    sprites.insert({"bomb", new AnimatedSprite("assets/textures/bomb.png", 16, 45)});
+    sprites.insert({"explosion", new Sprite("assets/textures/explosion.png")});
+    sprites.insert({"enemy", new AnimatedSprite("assets/textures/enemy.png", 16, 10)});
 }
 
 void Renderer::SetBoard(Board& board) {
@@ -24,7 +25,7 @@ void Renderer::SetBoard(Board& board) {
 
 Sprite* Renderer::GetSprite(std::string name) {
     auto sprite = sprites.find(name);
-    return sprite != sprites.end() ? &sprite->second : nullptr;
+    return sprite != sprites.end() ? sprite->second : nullptr;
 }
 
 void Renderer::DrawFrame(wxGraphicsContext* ctx, wxSize canvasSize) {
@@ -46,7 +47,21 @@ void Renderer::DrawObjects(wxGraphicsContext* ctx, Transform& t) {
         if(sprite == nullptr) {
             sprite = GetSprite("error");
         }
-        sprite->Draw(ctx, object->position.x, object->position.y, object->size.x, object->size.y, t);
+        
+        AnimatedSprite* animSprite = dynamic_cast<AnimatedSprite*>(sprite);
+        if (animSprite != nullptr) {
+            if (object->animationState.frameDuration == 0) {
+                object->animationState.frameDuration = animSprite->GetFrameDuration();
+            }
+            object->animationState.frameCounter++;
+            if (object->animationState.frameCounter >= object->animationState.frameDuration) {
+                object->animationState.currentFrame = (object->animationState.currentFrame + 1) % animSprite->GetFrameCount();
+                object->animationState.frameCounter = 0;
+            }
+            animSprite->DrawFrame(ctx, object->position.x, object->position.y, object->size.x, object->size.y, t, object->animationState.currentFrame);
+        } else {
+            sprite->Draw(ctx, object->position.x, object->position.y, object->size.x, object->size.y, t);
+        }
     }
 }
 
@@ -72,5 +87,5 @@ void Renderer::DrawBoard(wxGraphicsContext* ctx, Transform& t) {
 }
 
 void Renderer::SetPlayerColor(wxColour color) {
-    sprites.insert_or_assign("player", Sprite("assets/textures/player.png", color));
+    sprites.insert_or_assign("player", new AnimatedSprite("assets/textures/player.png", 16, 15, color));
 }

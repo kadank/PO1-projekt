@@ -12,7 +12,7 @@
 #include "../Board.h"
 
 class Renderer {
-    std::map<std::string, Sprite> sprites;
+    std::map<std::string, Sprite*> sprites;
     Board& board;
 
     Sprite* GetSprite(std::string name);
