@@ -17,7 +17,7 @@ void Bomb::Tick(std::set<char> pressedKeys) {
     if(ticks >= 180) {
         board.objects.push_back(new BombExplosion(board, position));
 
-        for(int x = position.x - TILE_SIZE; x >= position.x - TILE_SIZE * 4; x -= TILE_SIZE) {
+        for(int x = position.x - TILE_SIZE; x >= position.x - TILE_SIZE * 2; x -= TILE_SIZE) {
             std::vector<Object*> collidesWith;
             auto explosion = new BombExplosion(board, Vector(x, position.y));
             TileType col = board.CheckCollisions(*explosion, &collidesWith);
@@ -29,7 +29,7 @@ void Bomb::Tick(std::set<char> pressedKeys) {
             }
         }
 
-        for(int x = position.x + TILE_SIZE; x <= position.x + TILE_SIZE * 4; x += TILE_SIZE) {
+        for(int x = position.x + TILE_SIZE; x <= position.x + TILE_SIZE * 2; x += TILE_SIZE) {
             std::vector<Object*> collidesWith;
             auto explosion = new BombExplosion(board, Vector(x, position.y));
             TileType col = board.CheckCollisions(*explosion, &collidesWith);
@@ -41,7 +41,7 @@ void Bomb::Tick(std::set<char> pressedKeys) {
             }
         }
 
-        for(int y = position.y - TILE_SIZE; y >= position.y - TILE_SIZE * 4; y -= TILE_SIZE) {
+        for(int y = position.y - TILE_SIZE; y >= position.y - TILE_SIZE * 2; y -= TILE_SIZE) {
             std::vector<Object*> collidesWith;
             auto explosion = new BombExplosion(board, Vector(position.x, y));
             TileType col = board.CheckCollisions(*explosion, &collidesWith);
@@ -53,7 +53,7 @@ void Bomb::Tick(std::set<char> pressedKeys) {
             }
         }
 
-        for(int y = position.y + TILE_SIZE; y <= position.y + TILE_SIZE * 4; y += TILE_SIZE) {
+        for(int y = position.y + TILE_SIZE; y <= position.y + TILE_SIZE * 2; y += TILE_SIZE) {
             std::vector<Object*> collidesWith;
             auto explosion = new BombExplosion(board, Vector(position.x, y));
             TileType col = board.CheckCollisions(*explosion, &collidesWith);
