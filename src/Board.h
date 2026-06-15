@@ -17,6 +17,7 @@ public:
     std::function<void(int)> onScoreChanged;
     std::function<void(int)> onLivesChanged;
     std::function<void(int)> onTimeChanged;
+    std::function<void(wxString, wxString, wxString, std::function<void()>, wxString, std::function<void()>)> showOverlay;
 
     int width, height;
 
