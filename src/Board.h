@@ -21,17 +21,20 @@ public:
 
     int width, height;
 
-    int score, timeLeftTicks, lives;
+    int score, timeLeftTicks, lives, oldScore;
 
     Board(int width, int height);
 
     void Reset();
+    void Restart();
+    void NextLvl();
+    void Respawn();
     TileType CheckCollisions(Object &object, std::vector<Object*>* collidesWith);
     TileType CheckCollisions(Object &object);
     bool CheckCollisionsSimple(Object &object);
 
 private:
-
+    int level = 1;
     void GenerateBoard();
     void SpawnEnemies();
 };
