@@ -70,6 +70,7 @@ public:
     BombermanFrame() : wxFrame(NULL, wxID_ANY, "Bomberman", wxDefaultPosition, wxSize(800, 600)), board(21, 11) {
         wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
 
+
         wxMenu *menuGame = new wxMenu;
         menuGame->Append(ID_NewGame, wxString::FromUTF8("Menu główne"));
         Bind(wxEVT_MENU, &BombermanFrame::OnMainMenu, this, ID_NewGame);
@@ -92,9 +93,11 @@ public:
         menuPanel->Bind(MAIN_MENU_QUIT, &BombermanFrame::OnExit, this);
 
         aboutPanel = new AboutPage(this);
+
         aboutPanel->Bind(ABOUT_BACK, &BombermanFrame::OnAboutReturn, this);
 
         gamePanel = new GamePage(this);
+        gamePanel->Bind(GAME_MENU, &BombermanFrame::OnMainMenu, this);
         // gamePanel->SetBoard(board);
 
         sizer->Add(menuPanel, 1, wxEXPAND);

@@ -9,6 +9,8 @@
 #include "../components/BombermanGame.h"
 #include "../components/HudDisplay.h"
 
+wxDECLARE_EVENT(GAME_MENU, wxCommandEvent);
+
 class GamePage : public wxPanel {
 private:
     BombermanGame* gamePanel;
@@ -35,6 +37,8 @@ public:
     void Reset();
     void SetPlayerColor(wxColor color);
     void ShowOverlay(wxString title, wxString description, wxString leftButtonText, std::function<void()> leftButtonAction, wxString rightButtonText, std::function<void()> rightButtonAction);
+    void HideOverlay();
+    void OnMenu();
 };
 
 

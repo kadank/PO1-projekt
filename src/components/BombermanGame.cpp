@@ -54,15 +54,23 @@ void BombermanGame::Tick() {
         }
     }
     if (enemyCount==0) {
-        board.showOverlay(wxT("Zwycięstwo"),"",wxT("Powrót do menu"),[]{},wxT("Następny poziom"),[this]{board.NextLvl();is_paused = false;});
+        board.showOverlay(wxT("Zwycięstwo"),"",wxT("Powrót do menu"),this->board.onMainMenu,wxT("Następny poziom"),[this]{board.NextLvl();is_paused = false;});
         is_paused = true;
     }
 
 }
 
 void BombermanGame::OnDrawTimer(wxTimerEvent &event) {
-    if (pressedKeys.contains('P') && pause_delay <=0){ is_paused=!is_paused; pause_delay = 20;}
-    if (!is_paused) Tick();
+    if (pressedKeys.contains('P') && pause_delay <=0) {
+        if (board.CheckPause()) {
+            board.Unpause();
+        }else {
+            board.Pause();
+        }
+
+        pause_delay = 20;
+    }
+    if (!board.CheckPause()) Tick();
     pause_delay--;
     Refresh(false);
 }

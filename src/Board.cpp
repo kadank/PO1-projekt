@@ -9,6 +9,7 @@
 #include <list>
 
 #include "Constants.h"
+#include "components/BombermanGame.h"
 #include "objects/Enemy.h"
 #include "objects/Player.h"
 
@@ -27,6 +28,8 @@ void Board::Reset() {
     timeLeftTicks = 180 * 60;
     GenerateBoard();
     SpawnEnemies();
+    Unpause();
+    if (hideOverlay) hideOverlay();
 }
 void Board::Restart() {
     level = 1;
@@ -37,6 +40,11 @@ void Board::Restart() {
 }
 
 void Board::Respawn() {
+    lives--;
+    if (lives <= 0) {
+        Restart();
+        return;
+    }
     score = oldScore;
     Reset();
 }
@@ -45,6 +53,19 @@ void Board::NextLvl() {
     level++;
     oldScore = score;
     Reset();
+}
+
+void Board::Pause() {
+    is_paused = true;
+}
+
+void Board::Unpause() {
+    is_paused = false;
+}
+
+bool Board::CheckPause() {
+    if (is_paused) return true;
+    return false;
 }
 
 

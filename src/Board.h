@@ -18,7 +18,8 @@ public:
     std::function<void(int)> onLivesChanged;
     std::function<void(int)> onTimeChanged;
     std::function<void(wxString, wxString, wxString, std::function<void()>, wxString, std::function<void()>)> showOverlay;
-
+    std::function<void()> hideOverlay;
+    std::function<void()> onMainMenu;
     int width, height;
 
     int score, timeLeftTicks, lives, oldScore;
@@ -29,12 +30,16 @@ public:
     void Restart();
     void NextLvl();
     void Respawn();
+    void Pause();
+    void Unpause();
+    bool CheckPause();
     TileType CheckCollisions(Object &object, std::vector<Object*>* collidesWith);
     TileType CheckCollisions(Object &object);
     bool CheckCollisionsSimple(Object &object);
 
 private:
     int level = 1;
+    bool is_paused = false;
     void GenerateBoard();
     void SpawnEnemies();
 };

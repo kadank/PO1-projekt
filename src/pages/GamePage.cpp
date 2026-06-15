@@ -6,6 +6,8 @@
 
 #include "../components/HudDisplay.h"
 
+wxDEFINE_EVENT(GAME_MENU, wxCommandEvent);
+
 GamePage::GamePage(wxWindow *parent) : wxPanel(parent), board(21, 11) {
     SetBackgroundColour(wxColor(60, 80, 60));
 
@@ -31,9 +33,10 @@ GamePage::GamePage(wxWindow *parent) : wxPanel(parent), board(21, 11) {
         this->timeLeft->SetValue(wxString::Format("%d:%02d", time/60, time%60));
     };
     board.showOverlay = [this](wxString title, wxString description, wxString leftButtonText, std::function<void()> leftButtonAction, wxString rightButtonText, std::function<void()> rightButtonAction) {
-        std::cout << "jebanie\n";
         this->ShowOverlay(title, description, leftButtonText, leftButtonAction, rightButtonText, rightButtonAction);
     };
+    board.hideOverlay = [this](){this -> HideOverlay();};
+    board.onMainMenu = [this]() { this-> OnMenu();};
 
     gamePanel = new BombermanGame(this, board);
     gameSizer->Add(gamePanel, 1, wxEXPAND);
@@ -83,6 +86,10 @@ void GamePage::ShowOverlay(wxString title, wxString description, wxString leftBu
     overlay->Show();
 }
 
+void GamePage::HideOverlay() {
+    overlay -> Hide();
+}
+
 void GamePage::OnOverlayLeftButtonPressed(wxCommandEvent &event) {
     overlay->Hide();
     overlayLeftButtonAction();
@@ -113,4 +120,9 @@ void GamePage::Reset() {
 
 void GamePage::SetPlayerColor(wxColour color) {
     gamePanel->SetPlayerColor(color);
+}
+
+void GamePage::OnMenu() {
+    wxCommandEvent event(GAME_MENU);
+    wxPostEvent(this, event);
 }
