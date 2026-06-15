@@ -33,7 +33,7 @@ void Renderer::DrawFrame(wxGraphicsContext* ctx, wxSize canvasSize) {
     t.offsetX = (canvasSize.GetWidth() - board.width * TILE_SIZE * t.scale) / 2.0f;
     t.offsetY = ((canvasSize.GetHeight()) - board.height * TILE_SIZE * t.scale ) / 2.0f;
 
-    ctx->SetBrush(*wxBLACK_BRUSH);
+    ctx->SetBrush(*wxGREY_BRUSH);
     ctx->DrawRectangle(0, 0, canvasSize.GetWidth(), canvasSize.GetHeight());
 
     DrawBoard(ctx, t);
