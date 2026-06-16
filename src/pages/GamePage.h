@@ -1,7 +1,3 @@
-//
-// Created by kabus on 14.06.2026.
-//
-
 #ifndef PROJEKT_GAMEPAGE_H
 #define PROJEKT_GAMEPAGE_H
 

@@ -1,7 +1,3 @@
-//
-// Created by kabus on 14.06.2026.
-//
-
 #ifndef PROJEKT_HUDDISPLAY_H
 #define PROJEKT_HUDDISPLAY_H
 #include <wx/wx.h>

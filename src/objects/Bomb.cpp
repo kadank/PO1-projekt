@@ -1,7 +1,3 @@
-//
-// Created by kabus on 11.06.2026.
-//
-
 #include "Bomb.h"
 
 #include "BombExplosion.h"

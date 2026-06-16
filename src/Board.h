@@ -1,7 +1,3 @@
-//
-// Created by kabus on 27.04.2026.
-//
-
 #ifndef PROJEKT_BOARD_H
 #define PROJEKT_BOARD_H
 #include <list>

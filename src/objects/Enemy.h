@@ -1,7 +1,3 @@
-//
-// Created by kadank on 6/14/26.
-//
-
 #ifndef PROJEKT_ENEMY_H
 #define PROJEKT_ENEMY_H
 #include "Object.h"

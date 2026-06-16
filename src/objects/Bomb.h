@@ -1,7 +1,3 @@
-//
-// Created by kabus on 11.06.2026.
-//
-
 #ifndef PROJEKT_BOMB_H
 #define PROJEKT_BOMB_H
 #include "Object.h"

@@ -1,7 +1,3 @@
-//
-// Created by kabus on 15.06.2026.
-//
-
 #include "AnimatedSprite.h"
 
 AnimatedSprite::AnimatedSprite(std::string texture_path, int frameWidth, int frameDuration) : Sprite(texture_path) {
@@ -24,7 +20,7 @@ void AnimatedSprite::Draw(wxGraphicsContext *ctx, double x, double y, double w, 
 
 void AnimatedSprite::DrawFrame(wxGraphicsContext *ctx, double x, double y, double w, double h, Transform t, int frameIndex) {
     if (frames.empty()) return;
-    
+
     int safeFrame = frameIndex % frames.size();
     wxImage img = frames[safeFrame].ConvertToImage();
 

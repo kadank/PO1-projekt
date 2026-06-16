@@ -1,7 +1,3 @@
-//
-// Created by kabus on 14.06.2026.
-//
-
 #include "HudDisplay.h"
 
 HudDisplay::HudDisplay(wxWindow *parent, wxString label, wxString initialValue) : wxPanel(parent) {

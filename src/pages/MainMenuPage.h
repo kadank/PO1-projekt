@@ -1,7 +1,3 @@
-//
-// Created by kabus on 14.06.2026.
-//
-
 #ifndef PROJEKT_MAINMENUPAGE_H
 #define PROJEKT_MAINMENUPAGE_H
 #include <wx/clrpicker.h>

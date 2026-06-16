@@ -1,7 +1,3 @@
-//
-// Created by kabus on 29.04.2026.
-//
-
 #ifndef PROJEKT_BOMBERMANCANVAS_H
 #define PROJEKT_BOMBERMANCANVAS_H
 #include <wx/graphics.h>

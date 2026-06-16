@@ -1,7 +1,3 @@
-//
-// Created by kabus on 8.06.2026.
-//
-
 #ifndef PROJEKT_RENDERER_H
 #define PROJEKT_RENDERER_H
 

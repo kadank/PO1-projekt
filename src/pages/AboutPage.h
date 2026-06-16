@@ -1,7 +1,3 @@
-//
-// Created by kabus on 14.06.2026.
-//
-
 #ifndef PROJEKT_ABOUTPAGE_H
 #define PROJEKT_ABOUTPAGE_H
 #include <wx/wx.h>

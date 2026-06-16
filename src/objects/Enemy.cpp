@@ -1,7 +1,3 @@
-//
-// Created by kadank on 6/14/26.
-//
-
 #include "Enemy.h"
 
 #include <random>

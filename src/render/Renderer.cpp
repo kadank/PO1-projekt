@@ -1,7 +1,3 @@
-//
-// Created by kabus on 8.06.2026.
-//
-
 #include "Renderer.h"
 
 #include <iostream>
@@ -49,7 +45,7 @@ void Renderer::DrawObjects(wxGraphicsContext* ctx, Transform& t) {
         if(sprite == nullptr) {
             sprite = GetSprite("error");
         }
-        
+
         AnimatedSprite* animSprite = dynamic_cast<AnimatedSprite*>(sprite);
         if (animSprite != nullptr) {
             if (object->animationState.frameDuration == 0) {

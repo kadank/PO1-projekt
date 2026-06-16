@@ -1,7 +1,3 @@
-//
-// Created by kabus on 27.04.2026.
-//
-
 #ifndef PROJEKT_VECTOR_H
 #define PROJEKT_VECTOR_H
 

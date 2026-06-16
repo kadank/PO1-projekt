@@ -1,7 +1,3 @@
-//
-// Created by kabus on 8.06.2026.
-//
-
 #ifndef PROJEKT_SPRITE_H
 #define PROJEKT_SPRITE_H
 #include <wx/bitmap.h>

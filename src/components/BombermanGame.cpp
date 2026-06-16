@@ -1,7 +1,3 @@
-//
-// Created by kabus on 29.04.2026.
-//
-
 #include "BombermanGame.h"
 
 #include <wx/dcbuffer.h>

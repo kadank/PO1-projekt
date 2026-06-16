@@ -1,7 +1,3 @@
-//
-// Created by kabus on 27.04.2026.
-//
-
 #include "Object.h"
 
 void Object::Tick(std::set<char> pressedKeys) {

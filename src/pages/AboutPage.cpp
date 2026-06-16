@@ -1,7 +1,3 @@
-//
-// Created by kabus on 14.06.2026.
-//
-
 #include "AboutPage.h"
 
 wxDEFINE_EVENT(ABOUT_BACK, wxCommandEvent);
