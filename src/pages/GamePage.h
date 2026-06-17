@@ -12,6 +12,7 @@ private:
     BombermanGame* gamePanel;
     Board board;
     HudDisplay* score;
+    HudDisplay* level;
     HudDisplay* timeLeft;
     HudDisplay* lives;
     wxPanel* overlay;

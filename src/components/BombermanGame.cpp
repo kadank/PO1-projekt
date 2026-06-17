@@ -23,7 +23,7 @@ void BombermanGame::Tick() {
         std::remove_if(board.objects.begin(), board.objects.end(), [](const Object* x) { return x->flagDelete; }),
         board.objects.end());
     board.timeLeftTicks--;
-    board.onTimeChanged(board.timeLeftTicks / 60);
+    board.updateHud();
 
     if(board.timeLeftTicks <= 0) {
         board.showOverlay(wxT("Przegrana"), wxT("Skończył ci się czas"), wxT("Powrót do menu"), this->board.onMainMenu,

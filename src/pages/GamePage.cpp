@@ -14,15 +14,19 @@ GamePage::GamePage(wxWindow* parent) : wxPanel(parent), board(21, 11) {
     gameSizer->Add(hudSizer, 0, wxEXPAND);
     score = new HudDisplay(this, "Wynik", "0");
     hudSizer->Add(score, 1);
+    level = new HudDisplay(this, "Poziom", "1");
+    hudSizer->Add(level, 1);
     timeLeft = new HudDisplay(this, "Czas", "3:00");
     hudSizer->Add(timeLeft, 1);
     lives = new HudDisplay(this, wxT("Życia"), "3");
     hudSizer->Add(lives, 1);
 
-    board.onScoreChanged = [this](int score) { this->score->SetValue(wxString::Format("%d", score)); };
-    board.onLivesChanged = [this](int lives) { this->lives->SetValue(wxString::Format("%d", lives)); };
-    board.onTimeChanged = [this](int time) {
-        this->timeLeft->SetValue(wxString::Format("%d:%02d", time / 60, time % 60));
+    board.updateHud = [this]() {
+        this->score->SetValue(wxString::Format("%d", board.score));
+        this->level->SetValue(wxString::Format("%d", board.level));
+        this->timeLeft->SetValue(
+            wxString::Format("%d:%02d", board.timeLeftTicks / 60 / 60, board.timeLeftTicks / 60 % 60));
+        this->lives->SetValue(wxString::Format("%d", board.lives));
     };
     board.showOverlay = [this](wxString title, wxString description, wxString leftButtonText,
                                std::function<void()> leftButtonAction, wxString rightButtonText,

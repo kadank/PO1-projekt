@@ -24,7 +24,7 @@ void BombExplosion::Tick(std::set<char> pressedKeys) {
             if(dynamic_cast<Enemy*>(obj) != nullptr) {
                 obj->flagDelete = true;
                 board.score += 10;
-                board.onScoreChanged(board.score);
+                board.updateHud();
             }
         }
     }

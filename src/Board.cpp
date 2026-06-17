@@ -32,8 +32,7 @@ void Board::Restart() {
     score = 0;
     lives = 3;
     oldScore = 0;
-    if (onLivesChanged)onLivesChanged(lives);
-    if (onScoreChanged)onScoreChanged(score);
+    if(updateHud) updateHud();
     Reset();
 }
 
@@ -44,8 +43,7 @@ void Board::Respawn() {
         return;
     }
     score = oldScore;
-    if (onLivesChanged)onLivesChanged(lives);
-    if (onScoreChanged)onScoreChanged(score);
+    if(updateHud) updateHud();
     Reset();
 }
 
