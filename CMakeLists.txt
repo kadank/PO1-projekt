@@ -66,3 +66,5 @@ add_custom_command(TARGET projekt POST_BUILD
     COMMAND ${CMAKE_COMMAND}
     ARGS -E copy_directory_if_different "${PROJECT_SOURCE_DIR}/assets" "$<TARGET_FILE_DIR:projekt>/assets"
 )
+
+install(TARGETS projekt RUNTIME DESTINATION bin)

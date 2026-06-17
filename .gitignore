@@ -1,3 +1,5 @@
 build/
 .clangd
 .cache/
+AppDir/
+*.AppImage
