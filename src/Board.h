@@ -5,6 +5,13 @@
 
 #include "objects/Tile.h"
 
+enum class DeathType {
+    Timeout,
+    Enemy,
+    Explosion,
+    Final
+};
+
 class Board {
 public:
     std::vector<std::vector<Tile>> tiles;
@@ -27,7 +34,7 @@ public:
     void Respawn();
     void Pause();
     void Unpause();
-    void KillPlayer(int type);
+    void KillPlayer(DeathType type);
     int CheckLvl();
     bool CheckPause();
     TileType CheckCollisions(Object& object, std::vector<Object*>* collidesWith);

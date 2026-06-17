@@ -26,7 +26,7 @@ void BombermanGame::Tick() {
     board.updateHud();
 
     if(board.timeLeftTicks <= 0) {
-        board.KillPlayer(1);
+        board.KillPlayer(DeathType::Timeout);
     }
 
     if(pressedKeys.contains(']')) {

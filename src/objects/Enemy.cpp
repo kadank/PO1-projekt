@@ -37,7 +37,7 @@ void Enemy::Tick(std::set<char> pressedKeys) {
     // if collision with player
     if(std::any_of(collidesWith.begin(), collidesWith.end(),
                    [](Object* obj) { return dynamic_cast<Player*>(obj) != nullptr; })) {
-                    board.KillPlayer(2);
+        board.KillPlayer(DeathType::Enemy);
     }
 
     auto collidesWithBomb = [&]() -> bool {
@@ -58,12 +58,12 @@ void Enemy::Tick(std::set<char> pressedKeys) {
         if(board.CheckCollisionsSimple(*this) || collidesWithBomb()) {
             position.y = old;
             switch(random % 3) {
-            case 0: direction = !direction; break;
-            case 1: rotation = !rotation; break;
-            case 2:
-                rotation = !rotation;
-                direction = !direction;
-                break;
+                case 0: direction = !direction; break;
+                case 1: rotation = !rotation; break;
+                case 2:
+                    rotation = !rotation;
+                    direction = !direction;
+                    break;
             }
         }
 
@@ -90,12 +90,12 @@ void Enemy::Tick(std::set<char> pressedKeys) {
         if(board.CheckCollisionsSimple(*this) || collidesWithBomb()) {
             position.x = old;
             switch(random % 3) {
-            case 1: direction = !direction; break;
-            case 2: rotation = !rotation; break;
-            case 3:
-                rotation = !rotation;
-                direction = !direction;
-                break;
+                case 1: direction = !direction; break;
+                case 2: rotation = !rotation; break;
+                case 3:
+                    rotation = !rotation;
+                    direction = !direction;
+                    break;
             }
         }
         old = position.y;
