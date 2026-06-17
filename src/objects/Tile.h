@@ -16,4 +16,4 @@ public:
     Tile();
 };
 
-#endif //PROJEKT_TILE_H
+#endif // PROJEKT_TILE_H

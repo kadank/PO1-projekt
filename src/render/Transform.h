@@ -11,4 +11,4 @@ struct Transform {
 #define Y(y) floor(t.offsetY + (y) * t.scale)
 #define DONT_SCALE (Transform){1.0, 0.0, 0.0}
 
-#endif //PROJEKT_TRANSFORM_H
+#endif // PROJEKT_TRANSFORM_H

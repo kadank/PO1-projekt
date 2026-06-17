@@ -8,4 +8,4 @@ public:
     Vector(double x, double y);
 };
 
-#endif //PROJEKT_VECTOR_H
+#endif // PROJEKT_VECTOR_H

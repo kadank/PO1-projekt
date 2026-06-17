@@ -12,6 +12,4 @@ public:
     void SetValue(wxString value);
 };
 
-
-
-#endif //PROJEKT_HUDDISPLAY_H
+#endif // PROJEKT_HUDDISPLAY_H

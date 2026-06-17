@@ -3,4 +3,4 @@
 
 #define TILE_SIZE 32.0
 
-#endif //PROJEKT_CONSTANTS_H
+#endif // PROJEKT_CONSTANTS_H

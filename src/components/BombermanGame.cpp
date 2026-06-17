@@ -1,15 +1,15 @@
 #include "BombermanGame.h"
 
-#include <wx/dcbuffer.h>
-#include <wx/graphics.h>
-#include "../objects/Enemy.h"
 #include "../Board.h"
 #include "../Constants.h"
+#include "../objects/Enemy.h"
+#include <wx/dcbuffer.h>
+#include <wx/graphics.h>
 
-BombermanGame::BombermanGame(wxWindow *parent, Board& initialBoard) : wxPanel(parent), board(initialBoard), renderer(initialBoard) {
+BombermanGame::BombermanGame(wxWindow* parent, Board& initialBoard)
+    : wxPanel(parent), board(initialBoard), renderer(initialBoard) {
     Bind(wxEVT_PAINT, &BombermanGame::OnPaint, this);
-    Bind(wxEVT_ERASE_BACKGROUND, [](wxEraseEvent &) {
-    });
+    Bind(wxEVT_ERASE_BACKGROUND, [](wxEraseEvent&) {});
     SetBackgroundStyle(wxBG_STYLE_PAINT);
 
     drawTimer.Bind(wxEVT_TIMER, &BombermanGame::OnDrawTimer, this);
@@ -21,25 +21,23 @@ void BombermanGame::Tick() {
         board.objects[i]->Tick(pressedKeys);
     }
     board.objects.erase(
-        std::remove_if(
-            board.objects.begin(), board.objects.end(),
-            [](const Object* x) {
-                return x->flagDelete;
-            }
-        ),
-        board.objects.end()
-    );
+        std::remove_if(board.objects.begin(), board.objects.end(), [](const Object* x) { return x->flagDelete; }),
+        board.objects.end());
     board.timeLeftTicks--;
     board.onTimeChanged(board.timeLeftTicks / 60);
 
-    if (board.timeLeftTicks <=0) {
-        board.showOverlay(wxT("Przegrana"),wxT("Skończył ci się czas"),wxT("Powrót do menu"),this->board.onMainMenu,wxT("Spróbuj ponownie"),[this]{board.Respawn();board.Unpause();});
+    if(board.timeLeftTicks <= 0) {
+        board.showOverlay(wxT("Przegrana"), wxT("Skończył ci się czas"), wxT("Powrót do menu"), this->board.onMainMenu,
+                          wxT("Spróbuj ponownie"), [this] {
+                              board.Respawn();
+                              board.Unpause();
+                          });
         board.Pause();
     }
 
     if(pressedKeys.contains(']')) {
-        for (Object* obj : board.objects) {
-            if (dynamic_cast<Enemy*>(obj) != nullptr) {
+        for(Object* obj : board.objects) {
+            if(dynamic_cast<Enemy*>(obj) != nullptr) {
                 obj->flagDelete = true;
             }
         }
@@ -49,34 +47,37 @@ void BombermanGame::Tick() {
     }
 
     int enemyCount = 0;
-    for (Object* obj : board.objects) {
-        if (dynamic_cast<Enemy*>(obj) != nullptr) {
+    for(Object* obj : board.objects) {
+        if(dynamic_cast<Enemy*>(obj) != nullptr) {
             enemyCount++;
         }
     }
-    if (enemyCount==0) {
-        board.showOverlay(wxT("Zwycięstwo"),"",wxT("Powrót do menu"),this->board.onMainMenu,wxT("Następny poziom"),[this]{board.NextLvl();board.Unpause();});
+    if(enemyCount == 0) {
+        board.showOverlay(wxT("Zwycięstwo"), "", wxT("Powrót do menu"), this->board.onMainMenu, wxT("Następny poziom"),
+                          [this] {
+                              board.NextLvl();
+                              board.Unpause();
+                          });
         board.Pause();
     }
-
 }
 
-void BombermanGame::OnDrawTimer(wxTimerEvent &event) {
-    if (pressedKeys.contains('P') && pause_delay <=0) {
-        if (board.CheckPause()) {
+void BombermanGame::OnDrawTimer(wxTimerEvent& event) {
+    if(pressedKeys.contains('P') && pause_delay <= 0) {
+        if(board.CheckPause()) {
             board.Unpause();
-        }else {
+        } else {
             board.Pause();
         }
 
         pause_delay = 20;
     }
-    if (!board.CheckPause()) Tick();
+    if(!board.CheckPause()) Tick();
     pause_delay--;
     Refresh(false);
 }
 
-void BombermanGame::OnPaint(wxPaintEvent &event) {
+void BombermanGame::OnPaint(wxPaintEvent& event) {
     wxAutoBufferedPaintDC dc(this);
     wxGraphicsContext* gc = wxGraphicsContext::Create(dc);
 
@@ -88,7 +89,6 @@ void BombermanGame::OnPaint(wxPaintEvent &event) {
 }
 
 void BombermanGame::Setup(wxGraphicsContext* gc) {
-
 
     wxFont tmpFont16(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
     fontWhite16 = gc->CreateFont(tmpFont16, *wxWHITE);

@@ -13,7 +13,8 @@ public:
     std::function<void(int)> onScoreChanged;
     std::function<void(int)> onLivesChanged;
     std::function<void(int)> onTimeChanged;
-    std::function<void(wxString, wxString, wxString, std::function<void()>, wxString, std::function<void()>)> showOverlay;
+    std::function<void(wxString, wxString, wxString, std::function<void()>, wxString, std::function<void()>)>
+        showOverlay;
     std::function<void()> hideOverlay;
     std::function<void()> onMainMenu;
     int width, height;
@@ -30,9 +31,9 @@ public:
     void Unpause();
     int CheckLvl();
     bool CheckPause();
-    TileType CheckCollisions(Object &object, std::vector<Object*>* collidesWith);
-    TileType CheckCollisions(Object &object);
-    bool CheckCollisionsSimple(Object &object);
+    TileType CheckCollisions(Object& object, std::vector<Object*>* collidesWith);
+    TileType CheckCollisions(Object& object);
+    bool CheckCollisionsSimple(Object& object);
 
 private:
     int level = 1;
@@ -41,4 +42,4 @@ private:
     void SpawnEnemies();
 };
 
-#endif //PROJEKT_BOARD_H
+#endif // PROJEKT_BOARD_H

@@ -1,9 +1,9 @@
 #ifndef PROJEKT_GAMEPAGE_H
 #define PROJEKT_GAMEPAGE_H
 
-#include <wx/wx.h>
 #include "../components/BombermanGame.h"
 #include "../components/HudDisplay.h"
+#include <wx/wx.h>
 
 wxDECLARE_EVENT(GAME_MENU, wxCommandEvent);
 
@@ -32,11 +32,11 @@ public:
     GamePage(wxWindow* parent);
     void Reset();
     void SetPlayerColor(wxColor color);
-    void ShowOverlay(wxString title, wxString description, wxString leftButtonText, std::function<void()> leftButtonAction, wxString rightButtonText, std::function<void()> rightButtonAction);
+    void ShowOverlay(wxString title, wxString description, wxString leftButtonText,
+                     std::function<void()> leftButtonAction, wxString rightButtonText,
+                     std::function<void()> rightButtonAction);
     void HideOverlay();
     void OnMenu();
 };
 
-
-
-#endif //PROJEKT_GAMEPAGE_H
+#endif // PROJEKT_GAMEPAGE_H

@@ -4,8 +4,8 @@
 #include <map>
 #include <string>
 
-#include "Sprite.h"
 #include "../Board.h"
+#include "Sprite.h"
 
 class Renderer {
     std::map<std::string, Sprite*> sprites;
@@ -22,6 +22,4 @@ public:
     void DrawFrame(wxGraphicsContext* ctx, wxSize canvasSize);
 };
 
-
-
-#endif //PROJEKT_RENDERER_H
+#endif // PROJEKT_RENDERER_H

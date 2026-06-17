@@ -1,8 +1,8 @@
 #include "Board.h"
 
 #include <iostream>
-#include <random>
 #include <list>
+#include <random>
 
 #include "Constants.h"
 #include "components/BombermanGame.h"
@@ -25,7 +25,7 @@ void Board::Reset() {
     GenerateBoard();
     SpawnEnemies();
     Unpause();
-    if (hideOverlay) hideOverlay();
+    if(hideOverlay) hideOverlay();
 }
 void Board::Restart() {
     level = 1;
@@ -39,7 +39,7 @@ void Board::Restart() {
 
 void Board::Respawn() {
     lives--;
-    if (lives <= 0) {
+    if(lives <= 0) {
         Restart();
         return;
     }
@@ -68,16 +68,14 @@ void Board::Unpause() {
 }
 
 bool Board::CheckPause() {
-    if (is_paused) return true;
+    if(is_paused) return true;
     return false;
 }
-
-
 
 void Board::GenerateBoard() {
     std::random_device dev;
     std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> rand(1,5);
+    std::uniform_int_distribution<std::mt19937::result_type> rand(1, 5);
 
     for(int row = 0; row < height; row++) {
         if(tiles[row].capacity() < width) tiles[row].resize(width);
@@ -100,23 +98,21 @@ void Board::SpawnEnemies() {
     int enemycount = 2 + 2 * level;
     std::random_device dev;
     std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> rand(1,10);
+    std::uniform_int_distribution<std::mt19937::result_type> rand(1, 10);
     do {
         for(int row = 0; row < height; row++) {
             for(int col = 0; col < width; col++) {
                 if(row == 1 && col < 6 || col == 1 && row < 6) continue;
-                if (tiles[row][col].type == TileType::Empty && enemycount > 0 && rand(rng) == 1) {
-                    objects.push_back(new Enemy(*this,Vector(TILE_SIZE*col,TILE_SIZE*row)));
+                if(tiles[row][col].type == TileType::Empty && enemycount > 0 && rand(rng) == 1) {
+                    objects.push_back(new Enemy(*this, Vector(TILE_SIZE * col, TILE_SIZE * row)));
                     enemycount--;
                 }
             }
         }
-    }while (enemycount > 0);
-
-
+    } while(enemycount > 0);
 }
 
-TileType Board::CheckCollisions(Object &object, std::vector<Object*>* collidesWith) {
+TileType Board::CheckCollisions(Object& object, std::vector<Object*>* collidesWith) {
     TileType out = TileType::Empty;
 
     /*
@@ -130,9 +126,9 @@ TileType Board::CheckCollisions(Object &object, std::vector<Object*>* collidesWi
         for(int col = 0; col < width; col++) {
             if(tiles[row][col].type != TileType::Empty) {
                 if(!(object.position.x >= col * TILE_SIZE + TILE_SIZE ||
-                    object.position.x + object.size.x <= col * TILE_SIZE ||
-                    object.position.y >= row * TILE_SIZE + TILE_SIZE ||
-                    object.position.y + object.size.y <= row * TILE_SIZE)) {
+                     object.position.x + object.size.x <= col * TILE_SIZE ||
+                     object.position.y >= row * TILE_SIZE + TILE_SIZE ||
+                     object.position.y + object.size.y <= row * TILE_SIZE)) {
                     out = tiles[row][col].type;
                     break;
                 }
@@ -142,9 +138,9 @@ TileType Board::CheckCollisions(Object &object, std::vector<Object*>* collidesWi
 
     for(auto object2 : objects) {
         if(!(object.position.x >= object2->position.x + object2->size.x ||
-            object.position.x + object.size.x <= object2->position.x ||
-            object.position.y >= object2->position.y + object2->size.y ||
-            object.position.y + object.size.y <= object2->position.y)) {
+             object.position.x + object.size.x <= object2->position.x ||
+             object.position.y >= object2->position.y + object2->size.y ||
+             object.position.y + object.size.y <= object2->position.y)) {
             collidesWith->push_back(object2);
         }
     }
@@ -152,10 +148,10 @@ TileType Board::CheckCollisions(Object &object, std::vector<Object*>* collidesWi
     return out;
 }
 
-TileType Board::CheckCollisions(Object &object) {
+TileType Board::CheckCollisions(Object& object) {
     return CheckCollisions(object, new std::vector<Object*>());
 }
 
-bool Board::CheckCollisionsSimple(Object &object) {
+bool Board::CheckCollisionsSimple(Object& object) {
     return CheckCollisions(object, new std::vector<Object*>()) != TileType::Empty;
 }

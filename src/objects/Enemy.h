@@ -2,7 +2,7 @@
 #define PROJEKT_ENEMY_H
 #include "Object.h"
 
-class Enemy:public Object {
+class Enemy : public Object {
 public:
     Enemy(Board& board, Vector position);
 
@@ -13,5 +13,4 @@ private:
     void Tick(std::set<char> pressedKeys) override;
 };
 
-
-#endif //PROJEKT_ENEMY_H
+#endif // PROJEKT_ENEMY_H

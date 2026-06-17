@@ -12,6 +12,4 @@ private:
     void OnBack(wxCommandEvent& evt);
 };
 
-
-
-#endif //PROJEKT_ABOUTPAGE_H
+#endif // PROJEKT_ABOUTPAGE_H

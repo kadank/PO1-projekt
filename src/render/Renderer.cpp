@@ -4,8 +4,8 @@
 #include <wx/brush.h>
 #include <wx/gtk/brush.h>
 
-#include "AnimatedSprite.h"
 #include "../Constants.h"
+#include "AnimatedSprite.h"
 
 Renderer::Renderer(Board& board) : board(board) {
     sprites.insert({"error", new Sprite("assets/textures/error.png")});
@@ -28,9 +28,10 @@ Sprite* Renderer::GetSprite(std::string name) {
 
 void Renderer::DrawFrame(wxGraphicsContext* ctx, wxSize canvasSize) {
     Transform t{};
-    t.scale = fmin(static_cast<double>(canvasSize.GetWidth()) / (board.width * TILE_SIZE), (canvasSize.GetHeight()) / (board.height * TILE_SIZE));
+    t.scale = fmin(static_cast<double>(canvasSize.GetWidth()) / (board.width * TILE_SIZE),
+                   (canvasSize.GetHeight()) / (board.height * TILE_SIZE));
     t.offsetX = (canvasSize.GetWidth() - board.width * TILE_SIZE * t.scale) / 2.0f;
-    t.offsetY = ((canvasSize.GetHeight()) - board.height * TILE_SIZE * t.scale ) / 2.0f;
+    t.offsetY = ((canvasSize.GetHeight()) - board.height * TILE_SIZE * t.scale) / 2.0f;
 
     ctx->SetBrush(wxBrush(wxColor(60, 80, 60), wxBRUSHSTYLE_SOLID));
     ctx->DrawRectangle(0, 0, canvasSize.GetWidth(), canvasSize.GetHeight());
@@ -40,23 +41,25 @@ void Renderer::DrawFrame(wxGraphicsContext* ctx, wxSize canvasSize) {
 }
 
 void Renderer::DrawObjects(wxGraphicsContext* ctx, Transform& t) {
-    for(auto object: board.objects) {
+    for(auto object : board.objects) {
         Sprite* sprite = GetSprite(object->spriteName);
         if(sprite == nullptr) {
             sprite = GetSprite("error");
         }
 
         AnimatedSprite* animSprite = dynamic_cast<AnimatedSprite*>(sprite);
-        if (animSprite != nullptr) {
-            if (object->animationState.frameDuration == 0) {
+        if(animSprite != nullptr) {
+            if(object->animationState.frameDuration == 0) {
                 object->animationState.frameDuration = animSprite->GetFrameDuration();
             }
             object->animationState.frameCounter++;
-            if (object->animationState.frameCounter >= object->animationState.frameDuration) {
-                object->animationState.currentFrame = (object->animationState.currentFrame + 1) % animSprite->GetFrameCount();
+            if(object->animationState.frameCounter >= object->animationState.frameDuration) {
+                object->animationState.currentFrame =
+                    (object->animationState.currentFrame + 1) % animSprite->GetFrameCount();
                 object->animationState.frameCounter = 0;
             }
-            animSprite->DrawFrame(ctx, object->position.x, object->position.y, object->size.x, object->size.y, t, object->animationState.currentFrame);
+            animSprite->DrawFrame(ctx, object->position.x, object->position.y, object->size.x, object->size.y, t,
+                                  object->animationState.currentFrame);
         } else {
             sprite->Draw(ctx, object->position.x, object->position.y, object->size.x, object->size.y, t);
         }
@@ -69,12 +72,8 @@ void Renderer::DrawBoard(wxGraphicsContext* ctx, Transform& t) {
             Tile* tile = &board.tiles[row][col];
             Sprite* sprite = nullptr;
             switch(tile->type) {
-                case TileType::Solid:
-                    sprite = GetSprite("wall_solid");
-                    break;
-                case TileType::Destructible:
-                    sprite = GetSprite("wall_destructible");
-                    break;
+            case TileType::Solid: sprite = GetSprite("wall_solid"); break;
+            case TileType::Destructible: sprite = GetSprite("wall_destructible"); break;
             }
 
             if(sprite != nullptr) {

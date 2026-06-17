@@ -2,7 +2,7 @@
 #define PROJEKT_PLAYER_H
 #include "Object.h"
 
-class Player: public Object {
+class Player : public Object {
     void HandleMovement(std::set<char> pressedKeys, char key, double& moveAxis, double& offsetAxis, int moveDir);
 
 public:
@@ -11,4 +11,4 @@ public:
     void Tick(std::set<char> pressedKeys) override;
 };
 
-#endif //PROJEKT_PLAYER_H
+#endif // PROJEKT_PLAYER_H

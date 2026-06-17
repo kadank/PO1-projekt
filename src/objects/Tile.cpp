@@ -4,4 +4,5 @@ Tile::Tile(TileType type) {
     this->type = type;
 }
 
-Tile::Tile(): type(TileType::Empty) {}
+Tile::Tile() : type(TileType::Empty) {
+}

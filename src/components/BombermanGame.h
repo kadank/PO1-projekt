@@ -1,14 +1,14 @@
 #ifndef PROJEKT_BOMBERMANCANVAS_H
 #define PROJEKT_BOMBERMANCANVAS_H
+#include <set>
 #include <wx/graphics.h>
 #include <wx/wx.h>
-#include <set>
 
 #include "../render/Renderer.h"
 
 class Board;
 
-class BombermanGame: public wxPanel {
+class BombermanGame : public wxPanel {
 public:
     BombermanGame(wxWindow* parent, Board& initialBoard);
 
@@ -17,7 +17,6 @@ public:
     void SetKeyUp(char key);
     void SetPlayerColor(wxColor color);
     void ResetBoard();
-
 
 private:
     wxTimer drawTimer;
@@ -36,4 +35,4 @@ private:
     void Setup(wxGraphicsContext* gc);
 };
 
-#endif //PROJEKT_BOMBERMANCANVAS_H
+#endif // PROJEKT_BOMBERMANCANVAS_H

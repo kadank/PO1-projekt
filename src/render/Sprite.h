@@ -15,6 +15,4 @@ public:
     virtual void Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t);
 };
 
-
-
-#endif //PROJEKT_SPRITE_H
+#endif // PROJEKT_SPRITE_H

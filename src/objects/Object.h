@@ -28,4 +28,4 @@ public:
     virtual void Tick(std::set<char> pressedKeys);
 };
 
-#endif //PROJEKT_OBJECT_H
+#endif // PROJEKT_OBJECT_H

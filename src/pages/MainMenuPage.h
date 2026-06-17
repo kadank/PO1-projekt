@@ -18,6 +18,4 @@ public:
     MainMenuPage(wxWindow* parent);
 };
 
-
-
-#endif //PROJEKT_MAINMENUPAGE_H
+#endif // PROJEKT_MAINMENUPAGE_H

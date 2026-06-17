@@ -1,10 +1,10 @@
 #include <iostream>
 #include <optional>
 #include <random>
-#include <wx/wx.h>
-#include <wx/graphics.h>
-#include <wx/dcbuffer.h>
 #include <wx/clrpicker.h>
+#include <wx/dcbuffer.h>
+#include <wx/graphics.h>
+#include <wx/wx.h>
 
 #include "Board.h"
 #include "components/BombermanGame.h"
@@ -59,8 +59,7 @@ private:
     }
 };*/
 
-enum
-{
+enum {
     ID_NewGame,
     ID_FullScreen
 };
@@ -68,20 +67,19 @@ enum
 class BombermanFrame : public wxFrame {
 public:
     BombermanFrame() : wxFrame(NULL, wxID_ANY, "Bomberman", wxDefaultPosition, wxSize(800, 600)), board(21, 11) {
-        wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+        wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
 
-
-        wxMenu *menuGame = new wxMenu;
+        wxMenu* menuGame = new wxMenu;
         menuGame->Append(ID_NewGame, wxString::FromUTF8("Menu główne"));
         Bind(wxEVT_MENU, &BombermanFrame::OnMainMenu, this, ID_NewGame);
         menuGame->Append(ID_FullScreen, wxString::FromUTF8("Pełny ekran\tF11"), "", true);
         Bind(wxEVT_MENU, &BombermanFrame::OnToggleFullscreen, this, ID_FullScreen);
 
-        wxMenu *menuHelp = new wxMenu;
+        wxMenu* menuHelp = new wxMenu;
         menuHelp->Append(wxID_ABOUT, "O autorach");
         Bind(wxEVT_MENU, &BombermanFrame::OnAbout, this, wxID_ABOUT);
 
-        wxMenuBar *menuBar = new wxMenuBar;
+        wxMenuBar* menuBar = new wxMenuBar;
         menuBar->Append(menuGame, "&Gra");
         menuBar->Append(menuHelp, "&Informacje");
 
@@ -102,13 +100,12 @@ public:
 
         sizer->Add(menuPanel, 1, wxEXPAND);
         sizer->Add(gamePanel, 1, wxEXPAND);
-        sizer->Add(aboutPanel,1,wxEXPAND);
+        sizer->Add(aboutPanel, 1, wxEXPAND);
 
         SetSizer(sizer);
 
         gamePanel->Hide();
-        aboutPanel -> Hide();
-
+        aboutPanel->Hide();
     }
 
 private:
@@ -123,31 +120,32 @@ private:
         Close();
     }
     void OnAbout(wxCommandEvent& event) {
-        menuPanel -> Hide();
-        gamePanel -> Hide();
-        aboutPanel -> Show();
+        menuPanel->Hide();
+        gamePanel->Hide();
+        aboutPanel->Show();
         this->Layout();
-        //wxMessageBox("Autorzy \n Jakub Sakra \n Igor Lachowski \n Adrian Kisielewski \n Kacper 'Kykol' Kotulski", "About Us", wxOK | wxICON_INFORMATION);
+        // wxMessageBox("Autorzy \n Jakub Sakra \n Igor Lachowski \n Adrian Kisielewski \n Kacper 'Kykol' Kotulski",
+        // "About Us", wxOK | wxICON_INFORMATION);
     }
     void OnMainMenu(wxCommandEvent& event) {
         gamePanel->Hide();
         aboutPanel->Hide();
         menuPanel->Show();
     }
-    void OnNewGame(wxCommandEvent &event) {
+    void OnNewGame(wxCommandEvent& event) {
         gamePanel->SetPlayerColor(event.GetInt());
         menuPanel->Hide();
         gamePanel->Show();
-        aboutPanel -> Hide();
+        aboutPanel->Hide();
         gamePanel->SetFocus();
         gamePanel->Reset();
         GetSizer()->Layout();
     }
-    void OnToggleFullscreen(wxCommandEvent &event) {
+    void OnToggleFullscreen(wxCommandEvent& event) {
         this->ShowFullScreen(!this->IsFullScreen());
     }
 
-    void OnAboutReturn(wxCommandEvent &event) {
+    void OnAboutReturn(wxCommandEvent& event) {
         menuPanel->Show();
         aboutPanel->Hide();
         this->Layout();
@@ -159,7 +157,7 @@ public:
     virtual bool OnInit() {
         wxInitAllImageHandlers(); // fuck windows
         wxFont::AddPrivateFont("assets/fonts/PxPlus_ToshibaSat_8x16.ttf");
-        BombermanFrame *frame = new BombermanFrame();
+        BombermanFrame* frame = new BombermanFrame();
         frame->Show(true);
         return true;
     }

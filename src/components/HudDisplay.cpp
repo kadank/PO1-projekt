@@ -1,10 +1,11 @@
 #include "HudDisplay.h"
 
-HudDisplay::HudDisplay(wxWindow *parent, wxString label, wxString initialValue) : wxPanel(parent) {
-    wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
+HudDisplay::HudDisplay(wxWindow* parent, wxString label, wxString initialValue) : wxPanel(parent) {
+    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
     SetSizer(sizer);
 
-    wxFont hudFont(wxSize(8, 16), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, "PxPlus ToshibaSat 8x16");
+    wxFont hudFont(wxSize(8, 16), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false,
+                   "PxPlus ToshibaSat 8x16");
 
     this->label = new wxStaticText(this, wxID_ANY, label);
     this->label->SetFont(hudFont);
