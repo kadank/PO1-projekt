@@ -6,7 +6,7 @@
 wxDEFINE_EVENT(GAME_MENU, wxCommandEvent);
 
 GamePage::GamePage(wxWindow* parent) : wxPanel(parent), board(21, 11) {
-    SetBackgroundColour(wxColor(60, 80, 60));
+    SetBackgroundColour(wxColor(80, 60, 60));
 
     wxBoxSizer* gameSizer = new wxBoxSizer(wxVERTICAL);
     SetSizer(gameSizer);

@@ -31,7 +31,7 @@ void Renderer::DrawFrame(wxGraphicsContext* ctx, wxSize canvasSize) {
     t.offsetX = (canvasSize.GetWidth() - board.width * TILE_SIZE * t.scale) / 2.0f;
     t.offsetY = ((canvasSize.GetHeight()) - board.height * TILE_SIZE * t.scale) / 2.0f;
 
-    ctx->SetBrush(wxBrush(wxColor(60, 80, 60), wxBRUSHSTYLE_SOLID));
+    ctx->SetBrush(wxBrush(wxColor(80, 60, 60), wxBRUSHSTYLE_SOLID));
     ctx->DrawRectangle(0, 0, canvasSize.GetWidth(), canvasSize.GetHeight());
 
     DrawBoard(ctx, t);
@@ -70,8 +70,8 @@ void Renderer::DrawBoard(wxGraphicsContext* ctx, Transform& t) {
             Tile* tile = &board.tiles[row][col];
             Sprite* sprite = nullptr;
             switch(tile->type) {
-            case TileType::Solid: sprite = GetSprite("wall_solid"); break;
-            case TileType::Destructible: sprite = GetSprite("wall_destructible"); break;
+                case TileType::Solid: sprite = GetSprite("wall_solid"); break;
+                case TileType::Destructible: sprite = GetSprite("wall_destructible"); break;
             }
 
             if(sprite != nullptr) {
