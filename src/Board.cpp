@@ -111,9 +111,9 @@ bool Board::CheckPause() {
     return false;
 }
 
+std::mt19937 Board::rng{std::random_device{}()};
+
 void Board::GenerateBoard() {
-    std::random_device dev;
-    std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> rand(1, 5);
 
     for(int row = 0; row < height; row++) {

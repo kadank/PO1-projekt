@@ -1,6 +1,7 @@
 #ifndef PROJEKT_BOARD_H
 #define PROJEKT_BOARD_H
 #include "objects/Object.h"
+#include <random>
 #include <vector>
 
 #include "objects/Tile.h"
@@ -42,6 +43,7 @@ public:
     bool CheckCollisionsSimple(Object& object);
 
 private:
+    static std::mt19937 rng;
     bool is_paused = false;
     void GenerateBoard();
     void SpawnEnemies();
