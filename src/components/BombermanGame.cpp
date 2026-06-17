@@ -26,12 +26,7 @@ void BombermanGame::Tick() {
     board.updateHud();
 
     if(board.timeLeftTicks <= 0) {
-        board.showOverlay(wxT("Przegrana"), wxT("Skończył ci się czas"), wxT("Powrót do menu"), this->board.onMainMenu,
-                          wxT("Spróbuj ponownie"), [this] {
-                              board.Respawn();
-                              board.Unpause();
-                          });
-        board.Pause();
+        board.KillPlayer(1);
     }
 
     if(pressedKeys.contains(']')) {
@@ -111,5 +106,5 @@ void BombermanGame::SetPlayerColor(wxColour color) {
 }
 
 void BombermanGame::ResetBoard() {
-    this->board.Reset();
+    this->board.Restart();
 }

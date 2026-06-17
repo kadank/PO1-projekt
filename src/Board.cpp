@@ -57,6 +57,44 @@ void Board::NextLvl() {
     Reset();
 }
 
+void Board::KillPlayer(int type) {
+    if (lives <= 1) {
+        type =4;
+    }
+
+    switch(type) {
+        case 1: //time
+            showOverlay(wxT("Przegrana"), wxT("Skończył ci się czas"), wxT("Powrót do menu"), this->onMainMenu,
+                          wxT("Spróbuj ponownie"), [this] {
+                              Respawn();
+                              Unpause();
+                          });
+            break;
+        case 2: //enemy
+            showOverlay(wxT("Przegrana"), wxT("Dałeś się złapać"), wxT("Powrót do menu"), this->onMainMenu,
+                          wxT("Spróbuj ponownie"), [this] {
+                              Respawn();
+                              Unpause();
+                          });
+            break;
+        case 3: //explosion
+            showOverlay(wxT("Przegrana"), wxT("Wysadziłeś samego siebie"), wxT("Powrót do menu"), this->onMainMenu,
+                          wxT("Spróbuj ponownie"), [this] {
+                              Respawn();
+                              Unpause();
+                          });
+            break;
+        case 4: //last life
+            showOverlay(wxT("Game Over"), wxT("To było twoje ostatnie życie"), wxT("Powrót do menu"), this->onMainMenu,
+                          wxT("Nowa gra"), [this] {
+                              Restart();
+                              Unpause();
+                          });
+            break;
+    }
+    Pause();
+}
+
 void Board::Pause() {
     is_paused = true;
 }
