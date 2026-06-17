@@ -1,7 +1,6 @@
 #include "Renderer.h"
 
 #include <wx/brush.h>
-#include <wx/gtk/brush.h>
 
 #include "../Constants.h"
 #include "AnimatedSprite.h"
