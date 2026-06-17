@@ -1,6 +1,6 @@
 #ifndef PROJEKT_BOARD_H
 #define PROJEKT_BOARD_H
-#include <list>
+#include "objects/Object.h"
 #include <vector>
 
 #include "objects/Tile.h"

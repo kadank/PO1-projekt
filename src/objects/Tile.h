@@ -1,6 +1,5 @@
 #ifndef PROJEKT_TILE_H
 #define PROJEKT_TILE_H
-#include "Object.h"
 
 enum class TileType {
     Solid,

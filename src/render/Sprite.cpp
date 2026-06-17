@@ -1,7 +1,5 @@
 #include "Sprite.h"
 
-#include <iostream>
-
 Sprite::Sprite(std::string texture_path) {
     this->bitmap = wxBitmap(texture_path, wxBITMAP_TYPE_PNG);
 }

@@ -1,6 +1,7 @@
 #include "Bomb.h"
 
 #include "../Board.h"
+#include "../Constants.h"
 #include "BombExplosion.h"
 
 Bomb::Bomb(Board& board, Vector position) : Object(position, Vector(TILE_SIZE, TILE_SIZE), "bomb", board) {

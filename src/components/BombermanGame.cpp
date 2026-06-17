@@ -1,7 +1,6 @@
 #include "BombermanGame.h"
 
 #include "../Board.h"
-#include "../Constants.h"
 #include "../objects/Enemy.h"
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>

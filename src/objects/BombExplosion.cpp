@@ -1,6 +1,7 @@
 #include "BombExplosion.h"
 
 #include "../Board.h"
+#include "../Constants.h"
 #include "Enemy.h"
 
 BombExplosion::BombExplosion(Board& board, Vector position)

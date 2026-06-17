@@ -3,7 +3,6 @@
 #include <set>
 #include <wx/graphics.h>
 
-#include "../render/Sprite.h"
 #include "../utils/Vector.h"
 
 class Board;

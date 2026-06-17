@@ -1,6 +1,3 @@
-#include <iostream>
-#include <optional>
-#include <random>
 #include <wx/clrpicker.h>
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
@@ -11,53 +8,6 @@
 #include "pages/AboutPage.h"
 #include "pages/GamePage.h"
 #include "pages/MainMenuPage.h"
-
-/*class BombermanCanvas : public wxPanel {
-public:
-    BombermanCanvas(wxWindow* parent) : wxPanel(parent) {
-        Bind(wxEVT_PAINT, &BombermanCanvas::OnPaint, this);
-        Bind(wxEVT_ERASE_BACKGROUND, [](wxEraseEvent&) {});
-        SetBackgroundStyle(wxBG_STYLE_PAINT);
-
-        refreshTimer.Bind(wxEVT_TIMER, &BombermanCanvas::OnRefreshTimer, this);
-        refreshTimer.Start(14); // ~60 FPS
-    }
-
-private:
-    wxGraphicsFont gfont30;
-    int pos;
-
-    void OnPaint(wxPaintEvent& event)
-    {
-        wxAutoBufferedPaintDC dc(this); // required!
-
-        wxGraphicsContext* gc = wxGraphicsContext::Create(dc);
-        if (!gc) return;
-
-        // Drawing example
-
-        if(gfont30.IsNull()) {
-            wxFont font(30, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
-            gfont30 = gc->CreateFont(font, *wxWHITE);
-        }
-
-        gc->SetBrush(*wxBLACK_BRUSH);
-        gc->DrawRectangle(0, 0, this->GetSize().GetWidth(), this->GetSize().GetHeight());
-
-        gc->SetFont(gfont30);
-        gc->DrawText("Bomberman", this->GetSize().GetWidth()/2, this->GetSize().GetHeight()/2 - pos);
-        pos += 2;
-        pos = pos % 100;
-
-        delete gc;
-    }
-
-    wxTimer refreshTimer;
-
-    void OnRefreshTimer(wxTimerEvent&) {
-        Refresh(false);
-    }
-};*/
 
 enum {
     ID_NewGame,

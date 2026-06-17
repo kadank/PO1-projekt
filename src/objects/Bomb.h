@@ -1,6 +1,5 @@
 #ifndef PROJEKT_BOMB_H
 #define PROJEKT_BOMB_H
-#include "../Constants.h"
 #include "Object.h"
 
 class Bomb : public Object {

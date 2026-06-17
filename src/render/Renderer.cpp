@@ -1,6 +1,5 @@
 #include "Renderer.h"
 
-#include <iostream>
 #include <wx/brush.h>
 #include <wx/gtk/brush.h>
 
