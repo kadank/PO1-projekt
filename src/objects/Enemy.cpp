@@ -37,7 +37,7 @@ void Enemy::Tick(std::set<char> pressedKeys) {
     // if collision with player
     if(std::any_of(collidesWith.begin(), collidesWith.end(),
                    [](Object* obj) { return dynamic_cast<Player*>(obj) != nullptr; })) {
-        board.Respawn();
+                    board.KillPlayer(2);
     }
 
     auto collidesWithBomb = [&]() -> bool {

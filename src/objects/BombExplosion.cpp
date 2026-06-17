@@ -28,7 +28,7 @@ void BombExplosion::Tick(std::set<char> pressedKeys) {
                 board.updateHud();
             }
             if(dynamic_cast<Player*>(obj) != nullptr) {
-                board.Respawn();
+                board.KillPlayer(3);
             }
         }
     }
