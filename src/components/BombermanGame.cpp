@@ -2,6 +2,7 @@
 
 #include "../Board.h"
 #include "../objects/Enemy.h"
+#include <vector>
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 
@@ -19,9 +20,14 @@ void BombermanGame::Tick() {
     for(size_t i = 0; i < board.objects.size(); i++) {
         board.objects[i]->Tick(pressedKeys);
     }
-    board.objects.erase(
-        std::remove_if(board.objects.begin(), board.objects.end(), [](const Object* x) { return x->flagDelete; }),
-        board.objects.end());
+    for(auto iter = board.objects.begin(); iter != board.objects.end();) {
+        if((*iter)->flagDelete) {
+            delete *iter;
+            iter = board.objects.erase(iter);
+        } else {
+            ++iter;
+        }
+    }
     board.timeLeftTicks--;
     board.updateHud();
 
