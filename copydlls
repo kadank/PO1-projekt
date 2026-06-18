@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+set -e
+
+EXE="$1"
+OUT_DIR="$(dirname "$EXE")"
+
+if [ -z "$EXE" ]; then
+  echo "Usage: $0 <exe>"
+  exit 1
+fi
+
+declare -A VISITED
+
+# Common Windows system DLLs (safe to ignore)
+SYSTEM_DLLS="kernel32.dll user32.dll gdi32.dll advapi32.dll shell32.dll \
+ole32.dll oleaut32.dll comdlg32.dll ws2_32.dll crypt32.dll \
+msvcrt.dll ucrtbase.dll sechost.dll rpcrt4.dll shlwapi.dll"
+
+is_system_dll() {
+  local dll="$1"
+  for s in $SYSTEM_DLLS; do
+    if [[ "$dll" == "$s" ]]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+find_dlls() {
+  local file="$1"
+
+  local dlls
+  dlls=$(objdump -p "$file" 2>/dev/null \
+    | awk '/DLL Name/ {print $3}')
+
+  for dll in $dlls; do
+
+    # skip Windows system DLLs
+    if is_system_dll "$dll"; then
+      continue
+    fi
+
+    # avoid duplicates
+    if [[ ${VISITED[$dll]} ]]; then
+      continue
+    fi
+    VISITED[$dll]=1
+
+    # locate DLL (MinGW/MSYS2 only)
+    path=$(which "$dll" 2>/dev/null || true)
+
+    if [ -z "$path" ]; then
+      echo "WARNING missing: $dll"
+      continue
+    fi
+
+    # extra safety: skip System32 even if PATH resolves weirdly
+    case "$path" in
+      */System32*|*\\System32*)
+        echo "SKIP system DLL: $dll"
+        continue
+        ;;
+    esac
+
+    echo "COPY: $dll"
+    cp -f "$path" "$OUT_DIR/"
+
+    # recurse
+    find_dlls "$path"
+  done
+}
+
+echo "Scanning: $EXE"
+echo "Output: $OUT_DIR"
+echo ""
+
+find_dlls "$EXE"
+
+echo ""
+echo "Done."
