@@ -96,11 +96,13 @@ void GamePage::HideOverlay() {
 
 void GamePage::OnOverlayLeftButtonPressed(wxCommandEvent& event) {
     overlay->Hide();
+    gamePanel->SetFocusFromKbd();
     overlayLeftButtonAction();
 }
 
 void GamePage::OnOverlayRightButtonPressed(wxCommandEvent& event) {
     overlay->Hide();
+    gamePanel->SetFocusFromKbd();
     overlayRightButtonAction();
 }
 
