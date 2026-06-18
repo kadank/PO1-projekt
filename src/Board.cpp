@@ -37,6 +37,8 @@ void Board::Restart() {
     score = 0;
     lives = 3;
     oldScore = 0;
+    width = 21;
+    height = 11;
     if(updateHud) updateHud();
     Reset();
 }
@@ -55,6 +57,8 @@ void Board::Respawn() {
 void Board::NextLvl() {
     level++;
     oldScore = score;
+    width += 2;
+    height += 2;
     Reset();
 }
 
