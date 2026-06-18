@@ -49,20 +49,25 @@ add_executable(projekt src/main.cpp
 target_link_libraries(projekt ${wxWidgets_LIBRARIES})
 
 IF(WIN32)
-    if(CMAKE_CROSSCOMPILING)
-        file(GLOB MINGW_DLLS "/usr/x86_64-w64-mingw32/bin/*.dll")
-    else()
-        set(MINGW_DLLS "")
-    endif()
-    add_custom_command(TARGET projekt POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${MINGW_DLLS}
-            $<TARGET_FILE_DIR:projekt>
-    )
     target_sources(projekt PRIVATE resource.rc)
+    set_target_properties(projekt PROPERTIES WIN32_EXECUTABLE TRUE)
+    add_custom_command(
+        TARGET projekt POST_BUILD
+        COMMAND bash copydlls "$<TARGET_FILE:projekt>"
+    )
+    get_filename_component(CMAKE_BIN_DIR "${CMAKE_COMMAND}" DIRECTORY)
+    add_custom_command(
+        TARGET projekt POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory
+                "$<TARGET_FILE_DIR:projekt>/share/glib-2.0/schemas"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                "${CMAKE_BIN_DIR}/../share/glib-2.0/schemas/gschemas.compiled"
+                "$<TARGET_FILE_DIR:projekt>/share/glib-2.0/schemas/gschemas.compiled"
+    )
 ENDIF()
 
-add_custom_command(TARGET projekt POST_BUILD
+add_custom_command(
+    TARGET projekt POST_BUILD
     COMMAND ${CMAKE_COMMAND}
     ARGS -E copy_directory_if_different "${PROJECT_SOURCE_DIR}/assets" "$<TARGET_FILE_DIR:projekt>/assets"
 )
