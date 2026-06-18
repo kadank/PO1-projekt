@@ -114,7 +114,7 @@ bool Board::CheckPause() {
 std::mt19937 Board::rng{std::random_device{}()};
 
 void Board::GenerateBoard() {
-    std::uniform_int_distribution<std::mt19937::result_type> rand(1, 5);
+    std::uniform_int_distribution<std::mt19937::result_type> rand(1, 4);
 
     for(int row = 0; row < height; row++) {
         if(tiles[row].capacity() < width) tiles[row].resize(width);
