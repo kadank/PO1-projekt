@@ -1,15 +1,18 @@
 #include "Board.h"
 
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <list>
 #include <random>
+#include <vector>
 
 #include "Constants.h"
 #include "components/BombermanGame.h"
 #include "objects/Enemy.h"
 #include "objects/Object.h"
 #include "objects/Player.h"
+#include "objects/Tile.h"
 
 Board::Board(int width, int height) {
     this->width = width;
@@ -131,21 +134,30 @@ void Board::GenerateBoard() {
 }
 
 void Board::SpawnEnemies() {
-    int enemycount = 2 + 2 * level;
-    std::random_device dev;
-    std::mt19937 rng(dev());
+    int enemyCount = 2 + 2 * level;
     std::uniform_int_distribution<std::mt19937::result_type> rand(1, 10);
-    do {
-        for(int row = 0; row < height; row++) {
-            for(int col = 0; col < width; col++) {
-                if(row == 1 && col < 6 || col == 1 && row < 6) continue;
-                if(tiles[row][col].type == TileType::Empty && enemycount > 0 && rand(rng) == 1) {
-                    objects.push_back(new Enemy(*this, Vector(TILE_SIZE * col, TILE_SIZE * row)));
-                    enemycount--;
-                }
+    std::vector<std::pair<int, int>> emptyTiles;
+    for(int x = 0; x < width; x++) {
+        for(int y = 0; y < height; y++) {
+            if(tiles[y][x].type == TileType::Empty) {
+                emptyTiles.push_back({x, y});
             }
         }
-    } while(enemycount > 0);
+    }
+    std::vector<int> randomIndices;
+    for(int i = 0; i < emptyTiles.size(); i++) {
+        randomIndices.push_back(i);
+    }
+    std::shuffle(randomIndices.begin(), randomIndices.end(), rng);
+    for(int i = 0; i < enemyCount; i++) {
+        if(emptyTiles[randomIndices[i]].first < 4 && emptyTiles[randomIndices[i]].second < 4) {
+            enemyCount++;
+            continue;
+        }
+
+        objects.push_back(new Enemy(*this, Vector(TILE_SIZE * emptyTiles[randomIndices[i]].first,
+                                                  TILE_SIZE * emptyTiles[randomIndices[i]].second)));
+    }
 }
 
 TileType Board::CheckCollisions(Object& object, std::vector<Object*>* collidesWith) {
