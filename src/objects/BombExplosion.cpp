@@ -16,7 +16,7 @@ void BombExplosion::Tick(std::set<char> pressedKeys) {
         int row = position.y / TILE_SIZE;
         int col = position.x / TILE_SIZE;
         board.tiles[row][col].type = TileType::Empty;
-
+        // zliczanie punktów oraz potencjalne zabicie gracza przy eksplozji
         std::vector<Object*> tmp;
         board.CheckCollisions(*this, &tmp);
         for(auto obj : tmp) {

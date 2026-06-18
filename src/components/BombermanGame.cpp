@@ -16,6 +16,7 @@ BombermanGame::BombermanGame(wxWindow* parent, Board& initialBoard)
     drawTimer.Start(16); // ~60 FPS
 }
 
+// wydarzenia co każdą klatkę
 void BombermanGame::Tick() {
     for(size_t i = 0; i < board.objects.size(); i++) {
         board.objects[i]->Tick(pressedKeys);
@@ -31,7 +32,7 @@ void BombermanGame::Tick() {
     }
     board.timeLeftTicks--;
     board.updateHud();
-
+    // zabicie gracza na koniec czasu
     if(board.timeLeftTicks <= 0) {
         board.KillPlayer(DeathType::Timeout);
     }
@@ -43,6 +44,8 @@ void BombermanGame::Tick() {
             }
         }
     }
+
+    // restart gry
     if(pressedKeys.contains('R')) {
         board.Restart();
     }
@@ -53,6 +56,8 @@ void BombermanGame::Tick() {
             enemyCount++;
         }
     }
+
+    // ogłoszenie wygranej, oraz czekanie na decyzje gracza
     if(enemyCount == 0) {
         board.showOverlay(wxT("Zwycięstwo"), "", wxT("Powrót do menu"), this->board.onMainMenu, wxT("Następny poziom"),
                           [this] {
@@ -63,7 +68,9 @@ void BombermanGame::Tick() {
     }
 }
 
+// wywoływane co 1/60 sekundy
 void BombermanGame::OnDrawTimer(wxTimerEvent& event) {
+    // obsługa ESC i ekranu pauzy
     if(pressedKeys.contains(27) && pause_delay <= 0) {
         board.SetPause(!board.IsPaused());
         board.showOverlay(wxT("Pauza"), "", wxT("Powrót do menu"), this->board.onMainMenu, wxT("Kontynuuj"),
@@ -73,8 +80,10 @@ void BombermanGame::OnDrawTimer(wxTimerEvent& event) {
         }
         pause_delay = 20;
     }
+    // aktualizacja stanu gry
     if(!board.IsPaused()) Tick();
     pause_delay--;
+    // wymuszenie odświeżenia ekranu
     Refresh(false);
 }
 

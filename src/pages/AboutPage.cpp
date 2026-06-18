@@ -2,7 +2,7 @@
 #include <wx/wx.h>
 
 wxDEFINE_EVENT(ABOUT_BACK, wxCommandEvent);
-
+// Strona wyświetlająca informacje o autorach... nie wiem co więcej powiedzieć
 AboutPage::AboutPage(wxWindow* parent) : wxPanel(parent) {
     wxBoxSizer* aboutOuterSizer = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer* aboutSizer = new wxBoxSizer(wxVERTICAL);

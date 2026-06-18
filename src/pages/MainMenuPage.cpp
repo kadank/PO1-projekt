@@ -12,7 +12,8 @@ MainMenuPage::MainMenuPage(wxWindow* parent) : wxPanel(parent) {
     wxStaticText* title = new wxStaticText(this, wxID_ANY, "BomberMan");
     title->SetFont(GetFont().Scale(3.0));
     menuSizer->Add(title, 0, wxALIGN_CENTER | wxBOTTOM, 10);
-
+    // strona główna, przyciski odsyłające do gry i strony o autorach
+    // oraz wybranie koloru gracza jak i wyjście z gry
     wxBoxSizer* colorPickerSizer = new wxBoxSizer(wxHORIZONTAL);
     auto colorPickerLabel = new wxStaticText(this, wxID_ANY, "Kolor postaci: ");
     colorPickerSizer->Add(colorPickerLabel, 0, wxALIGN_CENTER, 10);

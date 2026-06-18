@@ -12,7 +12,7 @@ std::mt19937 Enemy::rng{std::random_device{}()};
 Enemy::Enemy(Board& board, Vector position) : Object(position, Vector(TILE_SIZE, TILE_SIZE), "enemy", board) {
     DetermineDirection();
 }
-
+// funkcja losująca kierunek w którym pójdzie przeciwnik
 void Enemy::DetermineDirection() {
     std::uniform_int_distribution<std::mt19937::result_type> rand(1, 2);
     if(rand(rng) == 1) {
@@ -37,13 +37,13 @@ void Enemy::Tick(std::set<char> pressedKeys) {
                    [](Object* obj) { return dynamic_cast<Player*>(obj) != nullptr; })) {
         board.KillPlayer(DeathType::Enemy);
     }
-
+    // kolizja z bombą
     auto collidesWithBomb = [&]() -> bool {
         std::vector<Object*> tmp;
         board.CheckCollisions(*this, &tmp);
         return std::any_of(tmp.begin(), tmp.end(), [](Object* obj) { return dynamic_cast<Bomb*>(obj) != nullptr; });
     };
-
+    // czekanie na ruch
     if(stayStillTicks > 0) {
         stayStillTicks--;
         return;
@@ -61,7 +61,8 @@ void Enemy::Tick(std::set<char> pressedKeys) {
         } else {
             position.y -= 1;
         }
-
+        // decyzja przeciwnika w przypadku kolizji
+        // zmiana kierunku lub czekanie
         if(board.CheckCollisionsSimple(*this) || collidesWithBomb()) {
             position.y = old;
             switch(random % 4) {
@@ -74,7 +75,7 @@ void Enemy::Tick(std::set<char> pressedKeys) {
                 case 3: stayStillTicks += random % 120; break;
             }
         }
-
+        // sprawdzanie czy można skręcić w bok i losowo decyduje czy skręcić
         old = position.x;
         position.x += 1;
         if(!(board.CheckCollisionsSimple(*this) || collidesWithBomb())) {
@@ -96,7 +97,8 @@ void Enemy::Tick(std::set<char> pressedKeys) {
         } else {
             position.x -= 1;
         }
-
+        // decyzja przeciwnika w przypadku kolizji
+        // zmiana kierunku lub czekanie
         if(board.CheckCollisionsSimple(*this) || collidesWithBomb()) {
             position.x = old;
             switch(random % 4) {
@@ -109,6 +111,7 @@ void Enemy::Tick(std::set<char> pressedKeys) {
                 case 3: stayStillTicks += random % 60; break;
             }
         }
+        // sprawdzanie czy można skręcić w bok i losowo decyduje czy skręcić
         old = position.y;
         position.y += 1;
         if(!(board.CheckCollisionsSimple(*this) || collidesWithBomb())) {

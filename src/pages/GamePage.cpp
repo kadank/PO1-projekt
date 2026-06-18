@@ -10,7 +10,7 @@ GamePage::GamePage(wxWindow* parent) : wxPanel(parent), board(21, 11) {
 
     wxBoxSizer* gameSizer = new wxBoxSizer(wxVERTICAL);
     SetSizer(gameSizer);
-
+    // górny hud
     wxBoxSizer* hudSizer = new wxBoxSizer(wxHORIZONTAL);
     gameSizer->Add(hudSizer, 0, wxEXPAND);
     score = new HudDisplay(this, "Wynik", "0");
@@ -21,7 +21,7 @@ GamePage::GamePage(wxWindow* parent) : wxPanel(parent), board(21, 11) {
     hudSizer->Add(timeLeft, 1);
     lives = new HudDisplay(this, wxT("Życia"), "3");
     hudSizer->Add(lives, 1);
-
+    // aktualizacja hudu
     board.updateHud = [this]() {
         this->score->SetValue(wxString::Format("%d", board.score));
         this->level->SetValue(wxString::Format("%d", board.level));

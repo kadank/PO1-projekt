@@ -21,6 +21,7 @@ Board::Board(int width, int height) {
     Restart();
 }
 
+// reset planszy
 void Board::Reset() {
     tiles.clear();
     tiles.resize(height);
@@ -35,6 +36,7 @@ void Board::Reset() {
     SetPause(false);
     if(hideOverlay) hideOverlay();
 }
+
 void Board::Restart() {
     level = 1;
     score = 0;
@@ -57,6 +59,7 @@ void Board::Respawn() {
     Reset();
 }
 
+// zmiana wartości na kolejny poziom
 void Board::NextLvl() {
     level++;
     oldScore = score;
@@ -70,11 +73,13 @@ void Board::KillPlayer(DeathType type) {
         type = DeathType::Final;
     }
 
+    // mapa posiadająca informacje o sposobie przegranej
     std::map<DeathType, wxString> messages = {{DeathType::Timeout, wxT("Skończył ci się czas")},
                                               {DeathType::Enemy, wxT("Dałeś się złapać")},
                                               {DeathType::Explosion, wxT("Wysadziłeś samego siebie")},
                                               {DeathType::Final, wxT("To było twoje ostatnie życie")}};
 
+    // wyświetlenie informacje o przegranej
     showOverlay(type == DeathType::Final ? wxT("Game Over") : wxT("Przegrana"), messages[type], wxT("Powrót do menu"),
                 this->onMainMenu, wxT("Spróbuj ponownie"), [this] {
                     Respawn();
@@ -84,10 +89,12 @@ void Board::KillPlayer(DeathType type) {
     SetPause(true);
 }
 
+// pauza
 void Board::SetPause(bool state) {
     isPaused = state;
 }
 
+// nadal pauza
 bool Board::IsPaused() {
     return isPaused;
 }
@@ -96,7 +103,6 @@ std::mt19937 Board::rng{std::random_device{}()};
 
 void Board::GenerateBoard() {
     std::uniform_int_distribution<std::mt19937::result_type> rand(1, 4);
-
     for(int row = 0; row < height; row++) {
         if(tiles[row].capacity() < width) tiles[row].resize(width);
 
@@ -114,6 +120,7 @@ void Board::GenerateBoard() {
     }
 }
 
+// logika rozmieszczania przeciwników
 void Board::SpawnEnemies() {
     int enemyCount = 2 + 2 * level;
     std::uniform_int_distribution<std::mt19937::result_type> rand(1, 10);
@@ -143,7 +150,6 @@ void Board::SpawnEnemies() {
 
 TileType Board::CheckCollisions(Object& object, std::vector<Object*>* collidesWith) {
     TileType out = TileType::Empty;
-
     for(int row = 0; row < height; row++) {
         for(int col = 0; col < width; col++) {
             if(tiles[row][col].type != TileType::Empty) {
@@ -182,7 +188,7 @@ bool Board::CheckCollisionsSimple(Object& object) {
 
 bool Board::CheckCollisionsCircle(Object& object, std::vector<Object*>* collidesWith) {
     bool out = false;
-
+    // sprawdza kolizje wokół danego punktu
     for(auto object2 : objects) {
         if(object2 == &object) continue;
         Vector objectCenter = Vector(object.position.x + object.size.x / 2.0, object.position.y + object.size.y / 2.0);

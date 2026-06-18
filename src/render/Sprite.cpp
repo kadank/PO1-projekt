@@ -4,6 +4,7 @@ Sprite::Sprite(std::string texture_path) {
     this->bitmap = wxBitmap(texture_path, wxBITMAP_TYPE_PNG);
 }
 
+// łądowanie sprite'a z pliku
 Sprite::Sprite(std::string texture_path, wxColor accent) {
     auto tmpBitmap = wxBitmap(texture_path, wxBITMAP_TYPE_PNG);
     auto image = tmpBitmap.ConvertToImage();
@@ -11,6 +12,7 @@ Sprite::Sprite(std::string texture_path, wxColor accent) {
     bitmap = wxBitmap(image);
 }
 
+// rysowanie sprite'a na ekranie
 void Sprite::Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t, int frames) {
     wxImage img = bitmap.ConvertToImage();
 

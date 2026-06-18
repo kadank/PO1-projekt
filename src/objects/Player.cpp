@@ -27,7 +27,7 @@ void Player::Tick(std::set<char> pressedKeys) {
 bool Player::IsColliding() {
     std::vector<Object*> collidesWith;
     if(board.CheckCollisions(*this, &collidesWith) != TileType::Empty) return true;
-
+    // blokowanie ruchu w przez bombę która ma isSolid == true
     for(auto obj : collidesWith) {
         Bomb* bomb = dynamic_cast<Bomb*>(obj);
         if(bomb != nullptr && bomb->isSolid) {
@@ -40,6 +40,7 @@ bool Player::IsColliding() {
 void Player::HandleMovement(std::set<char> pressedKeys, char key, double& moveAxis, double& offsetAxis, int moveDir) {
     if(pressedKeys.contains(key)) {
         moveAxis += moveDir * 3;
+        // sprawdzenie czy da się gracza wepchnąć w boczny korytarz na siłę
         if(IsColliding()) {
             float oldOffset = offsetAxis;
             for(int offset = -8; offset < 8; offset++) {

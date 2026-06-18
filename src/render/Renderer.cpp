@@ -5,6 +5,7 @@
 #include "../Constants.h"
 #include "AnimatedSprite.h"
 
+// wczytywanie sprite'ów z plików
 Renderer::Renderer(Board& board) : board(board) {
     sprites.insert({"error", new Sprite("assets/textures/error.png")});
     sprites.insert({"player", new AnimatedSprite("assets/textures/player.png", 16, 15, wxColor(74, 195, 255))});
@@ -19,11 +20,13 @@ void Renderer::SetBoard(Board& board) {
     this->board = board;
 }
 
+// zwracanie konkretnego sprite'a po nazwie
 Sprite* Renderer::GetSprite(std::string name) {
     auto sprite = sprites.find(name);
     return sprite != sprites.end() ? sprite->second : nullptr;
 }
 
+// obsługa wyświetlania obektów na ekranie co każdą klatkę
 void Renderer::DrawFrame(wxGraphicsContext* ctx, wxSize canvasSize) {
     Transform t{};
     t.scale = fmin(static_cast<double>(canvasSize.GetWidth()) / (board.width * TILE_SIZE),
@@ -38,6 +41,7 @@ void Renderer::DrawFrame(wxGraphicsContext* ctx, wxSize canvasSize) {
     DrawObjects(ctx, t);
 }
 
+// wyświetlanie obiektów
 void Renderer::DrawObjects(wxGraphicsContext* ctx, Transform& t) {
     for(auto object : board.objects) {
         Sprite* sprite = GetSprite(object->spriteName);
@@ -49,6 +53,7 @@ void Renderer::DrawObjects(wxGraphicsContext* ctx, Transform& t) {
     }
 }
 
+// wyświetlenie ścian
 void Renderer::DrawBoard(wxGraphicsContext* ctx, Transform& t) {
     for(int row = 0; row < board.height; row++) {
         for(int col = 0; col < board.width; col++) {
@@ -66,6 +71,7 @@ void Renderer::DrawBoard(wxGraphicsContext* ctx, Transform& t) {
     }
 }
 
+// ustawienie koloru gracza według poprzedniego wyboru
 void Renderer::SetPlayerColor(wxColour color) {
     delete sprites.at("player");
     sprites.insert_or_assign("player", new AnimatedSprite("assets/textures/player.png", 16, 15, color));
