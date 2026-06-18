@@ -15,16 +15,9 @@ AnimatedSprite::AnimatedSprite(std::string texture_path, int frameWidth, int fra
     }
 }
 
-void AnimatedSprite::Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t) {
-    DrawFrame(ctx, x, y, w, h, t, 0);
-}
-
-void AnimatedSprite::DrawFrame(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t,
-                               int frameIndex) {
-    if(frames.empty()) return;
-
-    int safeFrame = frameIndex % frames.size();
-    wxImage img = frames[safeFrame].ConvertToImage();
+void AnimatedSprite::Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t, int frames) {
+    int frameN = (frames / frameDuration) % this->frames.size();
+    wxImage img = this->frames[frameN].ConvertToImage();
 
     img = img.Scale(ceil(w * t.scale), ceil(h * t.scale), wxIMAGE_QUALITY_NEAREST);
 

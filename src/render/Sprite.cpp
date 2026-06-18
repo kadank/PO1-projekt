@@ -11,7 +11,7 @@ Sprite::Sprite(std::string texture_path, wxColor accent) {
     bitmap = wxBitmap(image);
 }
 
-void Sprite::Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t) {
+void Sprite::Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t, int frames) {
     wxImage img = bitmap.ConvertToImage();
 
     img = img.Scale(ceil(w * t.scale), ceil(h * t.scale), wxIMAGE_QUALITY_NEAREST);

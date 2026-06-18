@@ -12,7 +12,7 @@ protected:
 public:
     Sprite(std::string texture_path);
     Sprite(std::string texture_path, wxColor accent);
-    virtual void Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t);
+    virtual void Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t, int frames);
 };
 
 #endif // PROJEKT_SPRITE_H

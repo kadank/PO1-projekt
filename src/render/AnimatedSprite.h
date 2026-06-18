@@ -9,8 +9,7 @@ class AnimatedSprite : public Sprite {
 public:
     AnimatedSprite(std::string texture_path, int frameWidth, int frameDuration);
     AnimatedSprite(std::string texture_path, int frameWidth, int frameDuration, wxColor accent);
-    void Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t) override;
-    void DrawFrame(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t, int frameIndex);
+    void Draw(wxGraphicsContext* ctx, double x, double y, double w, double h, Transform t, int frames) override;
     int GetFrameCount() const {
         return frames.size();
     }

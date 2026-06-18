@@ -10,6 +10,7 @@
 class Renderer {
     std::map<std::string, Sprite*> sprites;
     Board& board;
+    int frames = 0;
 
     Sprite* GetSprite(std::string name);
     void DrawObjects(wxGraphicsContext* ctx, Transform& t);
