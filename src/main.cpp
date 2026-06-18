@@ -3,8 +3,6 @@
 #include <wx/graphics.h>
 #include <wx/wx.h>
 
-#include "Board.h"
-#include "components/BombermanGame.h"
 #include "pages/AboutPage.h"
 #include "pages/GamePage.h"
 #include "pages/MainMenuPage.h"
@@ -16,7 +14,7 @@ enum {
 
 class BombermanFrame : public wxFrame {
 public:
-    BombermanFrame() : wxFrame(NULL, wxID_ANY, "Bomberman", wxDefaultPosition, wxSize(1000, 600)), board(21, 11) {
+    BombermanFrame() : wxFrame(NULL, wxID_ANY, "Bomberman", wxDefaultPosition, wxSize(1000, 600)) {
         wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
 
         wxMenu* menuGame = new wxMenu;
@@ -46,7 +44,6 @@ public:
 
         gamePanel = new GamePage(this);
         gamePanel->Bind(GAME_MENU, &BombermanFrame::OnMainMenu, this);
-        // gamePanel->SetBoard(board);
 
         sizer->Add(menuPanel, 1, wxEXPAND);
         sizer->Add(gamePanel, 1, wxEXPAND);
@@ -62,7 +59,6 @@ private:
     MainMenuPage* menuPanel;
     AboutPage* aboutPanel;
     GamePage* gamePanel;
-    Board board;
     wxColourPickerCtrl* characterColorPicker;
 
     void OnHello(wxCommandEvent& event);
@@ -74,13 +70,12 @@ private:
         gamePanel->Hide();
         aboutPanel->Show();
         this->Layout();
-        // wxMessageBox("Autorzy \n Jakub Sakra \n Igor Lachowski \n Adrian Kisielewski \n Kacper 'Kykol' Kotulski",
-        // "About Us", wxOK | wxICON_INFORMATION);
     }
     void OnMainMenu(wxCommandEvent& event) {
         gamePanel->Hide();
         aboutPanel->Hide();
         menuPanel->Show();
+        this->Layout();
     }
     void OnNewGame(wxCommandEvent& event) {
         gamePanel->SetPlayerColor(event.GetInt());

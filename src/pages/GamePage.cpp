@@ -59,19 +59,19 @@ GamePage::GamePage(wxWindow* parent) : wxPanel(parent), board(21, 11) {
     overlaySizerOuter->Add(overlaySizer, 0, wxALIGN_CENTER);
     overlaySizerOuter->AddStretchSpacer(1);
 
-    overlayTitle = new wxStaticText(overlay, wxID_ANY, wxT("Przejebałeś"));
+    overlayTitle = new wxStaticText(overlay, wxID_ANY, wxT("title"));
     overlayTitle->SetFont(GetFont().Scale(3.0));
     overlaySizer->Add(overlayTitle, 0, wxALIGN_CENTER);
-    overlayDescription = new wxStaticText(overlay, wxID_ANY, wxT("Jesteś zjebem i chuj."));
+    overlayDescription = new wxStaticText(overlay, wxID_ANY, wxT("desc"));
     overlaySizer->Add(overlayDescription, 0, wxALIGN_CENTER | wxBOTTOM, 15);
 
     wxGridSizer* overlayButtonSizer = new wxGridSizer(wxHORIZONTAL);
     overlayButtonSizer->SetCols(2);
     overlaySizer->Add(overlayButtonSizer, 0, wxALIGN_CENTER);
-    overlayButtonLeft = new wxButton(overlay, wxID_ANY, "Chuj");
+    overlayButtonLeft = new wxButton(overlay, wxID_ANY, "left");
     overlayButtonLeft->Bind(wxEVT_BUTTON, &GamePage::OnOverlayLeftButtonPressed, this);
     overlayButtonSizer->Add(overlayButtonLeft, 1, wxRIGHT | wxEXPAND, 10);
-    overlayButtonRight = new wxButton(overlay, wxID_ANY, "Dupa");
+    overlayButtonRight = new wxButton(overlay, wxID_ANY, "right");
     overlayButtonRight->Bind(wxEVT_BUTTON, &GamePage::OnOverlayRightButtonPressed, this);
     overlayButtonSizer->Add(overlayButtonRight, 1, wxEXPAND);
 }

@@ -20,28 +20,13 @@ MainMenuPage::MainMenuPage(wxWindow* parent) : wxPanel(parent) {
     characterColorPicker->SetColour(wxColour(200, 200, 200));
     colorPickerSizer->Add(characterColorPicker, 1, 0, 10);
     menuSizer->Add(colorPickerSizer, 0, wxEXPAND | wxBOTTOM, 10);
-    wxButton* newGameButton = new wxButton(this,            // parent (the panel!)
-                                           wxID_ANY,        // ID
-                                           "Nowa gra",      // label
-                                           wxPoint(10, 10), // position
-                                           wxSize(100, 30)  // size
-    );
+    wxButton* newGameButton = new wxButton(this, wxID_ANY, "Nowa gra", wxPoint(10, 10), wxSize(100, 30));
     newGameButton->Bind(wxEVT_BUTTON, &MainMenuPage::OnNewGame, this);
     menuSizer->Add(newGameButton, 0, wxEXPAND | wxBOTTOM, 10);
-    wxButton* aboutButton = new wxButton(this,            // parent (the panel!)
-                                         wxID_ANY,        // ID
-                                         "O autorach",    // label
-                                         wxPoint(10, 10), // position
-                                         wxSize(100, 30)  // size
-    );
+    wxButton* aboutButton = new wxButton(this, wxID_ANY, "O autorach", wxPoint(10, 10), wxSize(100, 30));
     aboutButton->Bind(wxEVT_BUTTON, &MainMenuPage::OnAbout, this);
     menuSizer->Add(aboutButton, 0, wxEXPAND | wxBOTTOM, 10);
-    wxButton* quitButton = new wxButton(this,               // parent (the panel!)
-                                        wxID_ANY,           // ID
-                                        wxT("Wyjdź z gry"), // label
-                                        wxPoint(10, 10),    // position
-                                        wxSize(100, 30)     // size
-    );
+    wxButton* quitButton = new wxButton(this, wxID_ANY, wxT("Wyjdź z gry"), wxPoint(10, 10), wxSize(100, 30));
 
     quitButton->Bind(wxEVT_BUTTON, &MainMenuPage::OnExit, this);
     menuSizer->Add(quitButton, 0, wxEXPAND);

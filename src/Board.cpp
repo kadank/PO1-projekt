@@ -2,10 +2,10 @@
 
 #include <algorithm>
 #include <cmath>
-#include <iostream>
-#include <list>
+#include <map>
 #include <random>
 #include <vector>
+#include <wx/string.h>
 
 #include "Constants.h"
 #include "components/BombermanGame.h"
@@ -162,13 +162,6 @@ void Board::SpawnEnemies() {
 
 TileType Board::CheckCollisions(Object& object, std::vector<Object*>* collidesWith) {
     TileType out = TileType::Empty;
-
-    /*
-    return !(a.x > b.x + b.w ||
-    a.x + a.w < b.x ||
-    a.y > b.y + b.h ||
-    a.y + a.h < b.y);
-    */
 
     for(int row = 0; row < height; row++) {
         for(int col = 0; col < width; col++) {
