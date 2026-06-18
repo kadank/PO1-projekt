@@ -56,23 +56,19 @@ void BombermanGame::Tick() {
         board.showOverlay(wxT("Zwycięstwo"), "", wxT("Powrót do menu"), this->board.onMainMenu, wxT("Następny poziom"),
                           [this] {
                               board.NextLvl();
-                              board.Unpause();
+                              board.SetPause(false);
                           });
-        board.Pause();
+        board.SetPause(true);
     }
 }
 
 void BombermanGame::OnDrawTimer(wxTimerEvent& event) {
     if(pressedKeys.contains('P') && pause_delay <= 0) {
-        if(board.CheckPause()) {
-            board.Unpause();
-        } else {
-            board.Pause();
-        }
+        board.SetPause(!board.IsPaused());
 
         pause_delay = 20;
     }
-    if(!board.CheckPause()) Tick();
+    if(!board.IsPaused()) Tick();
     pause_delay--;
     Refresh(false);
 }

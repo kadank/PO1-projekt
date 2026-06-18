@@ -33,18 +33,16 @@ public:
     void Restart();
     void NextLvl();
     void Respawn();
-    void Pause();
-    void Unpause();
+    void SetPause(bool state);
     void KillPlayer(DeathType type);
-    int CheckLvl();
-    bool CheckPause();
+    bool IsPaused();
     TileType CheckCollisions(Object& object, std::vector<Object*>* collidesWith);
     TileType CheckCollisions(Object& object);
     bool CheckCollisionsSimple(Object& object);
 
 private:
     static std::mt19937 rng;
-    bool is_paused = false;
+    bool isPaused = false;
     void GenerateBoard();
     void SpawnEnemies();
 };

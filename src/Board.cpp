@@ -27,7 +27,7 @@ void Board::Reset() {
     timeLeftTicks = 180 * 60;
     GenerateBoard();
     SpawnEnemies();
-    Unpause();
+    SetPause(false);
     if(hideOverlay) hideOverlay();
 }
 void Board::Restart() {
@@ -50,10 +50,6 @@ void Board::Respawn() {
     Reset();
 }
 
-int Board::CheckLvl() {
-    return level;
-}
-
 void Board::NextLvl() {
     level++;
     oldScore = score;
@@ -70,45 +66,40 @@ void Board::KillPlayer(DeathType type) {
             showOverlay(wxT("Przegrana"), wxT("Skończył ci się czas"), wxT("Powrót do menu"), this->onMainMenu,
                         wxT("Spróbuj ponownie"), [this] {
                             Respawn();
-                            Unpause();
+                            SetPause(false);
                         });
             break;
         case DeathType::Enemy:
             showOverlay(wxT("Przegrana"), wxT("Dałeś się złapać"), wxT("Powrót do menu"), this->onMainMenu,
                         wxT("Spróbuj ponownie"), [this] {
                             Respawn();
-                            Unpause();
+                            SetPause(false);
                         });
             break;
         case DeathType::Explosion:
             showOverlay(wxT("Przegrana"), wxT("Wysadziłeś samego siebie"), wxT("Powrót do menu"), this->onMainMenu,
                         wxT("Spróbuj ponownie"), [this] {
                             Respawn();
-                            Unpause();
+                            SetPause(false);
                         });
             break;
         case DeathType::Final:
             showOverlay(wxT("Game Over"), wxT("To było twoje ostatnie życie"), wxT("Powrót do menu"), this->onMainMenu,
                         wxT("Nowa gra"), [this] {
                             Restart();
-                            Unpause();
+                            SetPause(false);
                         });
             break;
     }
-    Pause();
+    SetPause(true);
 }
 
-void Board::Pause() {
-    is_paused = true;
+void Board::SetPause(bool state) {
+    isPaused = state;
 }
 
-void Board::Unpause() {
-    is_paused = false;
-}
-
-bool Board::CheckPause() {
-    if(is_paused) return true;
-    return false;
+bool Board::IsPaused() {
+    return isPaused;
 }
 
 std::mt19937 Board::rng{std::random_device{}()};
