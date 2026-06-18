@@ -70,36 +70,17 @@ void Board::KillPlayer(DeathType type) {
         type = DeathType::Final;
     }
 
-    switch(type) {
-        case DeathType::Timeout:
-            showOverlay(wxT("Przegrana"), wxT("Skończył ci się czas"), wxT("Powrót do menu"), this->onMainMenu,
-                        wxT("Spróbuj ponownie"), [this] {
-                            Respawn();
-                            SetPause(false);
-                        });
-            break;
-        case DeathType::Enemy:
-            showOverlay(wxT("Przegrana"), wxT("Dałeś się złapać"), wxT("Powrót do menu"), this->onMainMenu,
-                        wxT("Spróbuj ponownie"), [this] {
-                            Respawn();
-                            SetPause(false);
-                        });
-            break;
-        case DeathType::Explosion:
-            showOverlay(wxT("Przegrana"), wxT("Wysadziłeś samego siebie"), wxT("Powrót do menu"), this->onMainMenu,
-                        wxT("Spróbuj ponownie"), [this] {
-                            Respawn();
-                            SetPause(false);
-                        });
-            break;
-        case DeathType::Final:
-            showOverlay(wxT("Game Over"), wxT("To było twoje ostatnie życie"), wxT("Powrót do menu"), this->onMainMenu,
-                        wxT("Nowa gra"), [this] {
-                            Restart();
-                            SetPause(false);
-                        });
-            break;
-    }
+    std::map<DeathType, wxString> messages = {{DeathType::Timeout, wxT("Skończył ci się czas")},
+                                              {DeathType::Enemy, wxT("Dałeś się złapać")},
+                                              {DeathType::Explosion, wxT("Wysadziłeś samego siebie")},
+                                              {DeathType::Final, wxT("To było twoje ostatnie życie")}};
+
+    showOverlay(type == DeathType::Final ? wxT("Game Over") : wxT("Przegrana"), messages[type], wxT("Powrót do menu"),
+                this->onMainMenu, wxT("Spróbuj ponownie"), [this] {
+                    Respawn();
+                    SetPause(false);
+                });
+
     SetPause(true);
 }
 
