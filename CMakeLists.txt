@@ -48,6 +48,8 @@ add_executable(projekt src/main.cpp
 )
 target_link_libraries(projekt ${wxWidgets_LIBRARIES})
 
+target_compile_options(projekt PRIVATE -Wall -Wextra)
+
 IF(WIN32)
     target_sources(projekt PRIVATE resource.rc)
     set_target_properties(projekt PROPERTIES WIN32_EXECUTABLE TRUE)
